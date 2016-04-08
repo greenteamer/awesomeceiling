@@ -1,6 +1,7 @@
 import {
 	StyleSheet,
-	sozdanie
+	sozdanie,
+	Dimensions
 } from 'react-native';
 
 var primary = require('./variable.js').brandPrimary;
@@ -8,6 +9,7 @@ var secondary = require('./variable.js').brandSecondary;
 
 var colors = require('./variable.js');
 
+var deviceWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
 	container: {
 		flex: 1,
@@ -45,12 +47,6 @@ export default StyleSheet.create({
 		margin: 15, 
 		marginTop: 5,
 	},
-	textInput: {
-		height: 40, 
-		backgroundColor: 'transparent',
-		color: 'rgba(255, 255, 255, 0.9)',
-		paddingLeft: 10,
-	},
 	bg : {
 		flex: 1,
 		marginTop: 45,
@@ -86,5 +82,52 @@ export default StyleSheet.create({
 	},
 	navbar: {
 		borderBottomColor: 'transparent',
-	}
+	},
+	// TEXT
+	h1Center: {
+		textAlign: 'center',
+		color: '#3c4350',
+		alignSelf: 'center',
+		fontSize: 25,
+		marginBottom: 10
+	},
+	textCenter: {
+		textAlign: 'center',
+		color: '#96999a',
+		alignSelf: 'center',
+		marginBottom: 10,
+		fontSize: 12,
+		width: deviceWidth-100,
+	},
+	// BUTTONS
+	btnBig: {
+		backgroundColor: '#06bebd',
+		padding: 15,
+		borderColor: 'transparent',
+		borderWidth:2,
+		alignSelf: 'center',
+		borderRadius: 30,
+		width: deviceWidth-100,
+		height: 55
+	},
+	btnText: {
+		color: '#fff',
+		alignSelf: 'center',
+		fontSize: 18
+	},
+	// FORM
+	formGroup: {
+		marginBottom: 25
+	},
+	textInput: {
+		height: 40, 
+		fontSize: 12,
+		width: deviceWidth-100,
+		textAlign: 'center',
+		alignSelf: 'center',
+		backgroundColor: '#f7f7f8',
+		color: '#696d6f',
+		paddingLeft: 10,
+		marginBottom: 12
+	},
 });
