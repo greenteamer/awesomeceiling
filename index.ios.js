@@ -5,18 +5,24 @@
 
 import React, {
 	AppRegistry,
-	Component,
-	StyleSheet,
-	Text,
-	View
+	Component
 } from 'react-native';
-import App from './App/App.js'
+import RootRouter from './App/RootRouter.js'
+// const Realm = require('realm');
+
 
 class AwesomeCeiling extends Component {
 	render() {
+		// let realm = new Realm({
+		// 	schema: [{name: 'Dog', properties: {name: 'string'}}]
+		// });
+		// realm.write(() => {
+		// 	realm.create('Dog', {name: 'Rex'});
+		// });
+		// console.log('Count of Dogs in Realm: ', realm.objects('Dog').length);
 		return (
-			<App />
-		);
+			<RootRouter />
+		)
 	}
 }
 

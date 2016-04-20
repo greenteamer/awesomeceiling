@@ -6,8 +6,11 @@ import React, {
 	TextInput,
 	StyleSheet,
 	Dimensions,
-	ScrollView
+	ScrollView,
+	TouchableHighlight
 } from 'react-native';
+import {Actions} from 'react-native-router-flux'
+
 import ButtonRounded from '../widgets/ButtonRounded.js';
 import BTNBig from '../widgets/BTNBig.js';
 import styles from '../styles/style.js';
@@ -33,6 +36,7 @@ export default class Login extends Component {
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
+				'Authorization': 'Token ff56aed5307733817a0c47034fe2b223f38f5057'
 			},
 			body: JSON.stringify({
 				email: 'admin@admin.ru',
@@ -44,20 +48,39 @@ export default class Login extends Component {
 	}
 
 	logout(){
-		fetch('http://127.0.0.1:8000/rest-api/logout/')
-			.then((response) => console.log('logout response: ', response))
+		console.log("logout action start")
+		let url = config.domain + '/rest-auth/logout/';
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				token: 'Token ff56aed5307733817a0c47034fe2b223f38f5057',
+			})
+		}).then((response) => console.log('logout response: ', response))
+	}
+
+	pushToRegister(){
+
 	}
 
 	getProjects(){
 		console.log("get projects func start")
-		fetch('http://127.0.0.1:8000/api/projects/')
+		let url = config.domain + '/api/projects/';
+		fetch(url, {
+			headers: {
+				'Authorization': 'Token ff56aed5307733817a0c47034fe2b223f38f5057'
+			},
+		})
 			.then((responce) => console.log(responce))
 	}
 
 	render(){
 
 		return(
-			<ScrollView>
+			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 80, marginBottom: 20}}>
 					<Image style={{alignSelf: 'center'}} source={require('../img/icon.png')}/>
 					<Text style={styles.h1Center}>
@@ -85,10 +108,35 @@ export default class Login extends Component {
 						onPress={()=> this.login()}
 						text="Войти" />
 				</View>
+				<View style={{ marginTop: 20 }}>
+					<TouchableHighlight
+						underlayColor="transparent"
+						onPress={()=>Actions.register()}>
+						<Text style={styles.textCenter}>
+							Еще нет аккаунта?
+							<Text style={{color: '#06bebd'}}> Зарегистрироваться</Text>
+						</Text>
+					</TouchableHighlight>
+				</View>
+				<View style={{ marginTop: 10 }}>
+					<TouchableHighlight
+						underlayColor="transparent"
+						onPress={()=>this.logout()}>
+						<Text style={styles.textCenter}>
+							<Text style={{color: '#06bebd'}}> Выйти</Text>
+						</Text>
+					</TouchableHighlight>
+				</View>
+				<View style={{ marginTop: 10 }}>
+					<TouchableHighlight
+						underlayColor="transparent"
+						onPress={()=>this.getProjects()}>
+						<Text style={styles.textCenter}>
+							<Text style={{color: '#06bebd'}}> получить проекты</Text>
+						</Text>
+					</TouchableHighlight>
+				</View>
 			</ScrollView>
 		)
 	}
-
 }
-
-

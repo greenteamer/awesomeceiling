@@ -113,7 +113,7 @@ export default StyleSheet.create({
 	btnText: {
 		color: '#fff',
 		alignSelf: 'center',
-		fontSize: 18
+		fontSize: 16
 	},
 	// FORM
 	formGroup: {
