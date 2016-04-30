@@ -81,7 +81,7 @@ export default StyleSheet.create({
 		alignSelf: 'center'
 	},
 	navbar: {
-		borderBottomColor: 'transparent',
+		borderBottomColor: 'red',
 	},
 	// TEXT
 	h1Center: {
@@ -109,6 +109,46 @@ export default StyleSheet.create({
 		borderRadius: 30,
 		width: deviceWidth-100,
 		height: 55
+	},
+	btnCenter: {
+		backgroundColor: '#06bebd',
+		padding: 5,
+		borderColor: 'transparent',
+		borderWidth: 1,
+		alignSelf: 'center',
+		borderRadius: 20,
+		width: deviceWidth-150,
+		height: 35
+	},
+	btnRight: {
+		backgroundColor: '#06bebd',
+		padding: 5,
+		borderColor: 'transparent',
+		borderWidth: 1,
+		alignSelf: 'flex-end',
+		borderRadius: 20,
+		width: deviceWidth-150,
+		height: 35
+	},
+	btnLeft: {
+		backgroundColor: '#06bebd',
+		padding: 5,
+		borderColor: 'transparent',
+		borderWidth: 1,
+		borderRadius: 20,
+		width: deviceWidth-150,
+		height: 35
+	},
+	btnSmall: {
+		// backgroundColor: '#06bebd',
+		paddingLeft: 20,
+		paddingRight: 20,
+		// borderColor: 'transparent',
+		// borderWidth: 0,
+		alignSelf: 'center',
+		// borderRadius: 15,
+		margin: 10,
+		height: 25
 	},
 	btnText: {
 		color: '#fff',

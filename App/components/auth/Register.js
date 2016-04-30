@@ -7,7 +7,8 @@ import React, {
 	StyleSheet,
 	Dimensions,
 	ScrollView,
-	TouchableHighlight
+	TouchableHighlight,
+	AsyncStorage
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 
@@ -29,8 +30,22 @@ export default class Register extends Component {
 			username: '',
 			email: '',
 			password1: '',
-			password2: ''
+			password2: '',
+			token: ''
 		};
+	}
+
+	async _onTokenChange(token) {
+		console.log("Register start _onTokenChange");
+		this.setState({
+			token: token
+		});
+		try {
+			await AsyncStorage.setItem("token", token);
+			console.log('Register Saved selection to disk: ' + token);
+		} catch (error) {
+			console.log('Register AsyncStorage error: ' + error.message);
+		}
 	}
 
 	register(){
@@ -43,14 +58,17 @@ export default class Register extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				// username: this.state.username,
+				username: this.state.username,
 				email: this.state.email,
 				password1: this.state.password1,
 				password2: this.state.password2,
 			})
 		})
-			.then((response) => {
-				console.log("registration response: ", response);
+			.then((response) => response.text())
+			.then((responseText) => {
+				console.log("Register registration response: ", responseText);
+				let token = JSON.parse(responseText).key;
+				this._onTokenChange(token);
 			})
 			// .then((responseText) => console.log("auth responce: ", responseText));
 	}

@@ -7,7 +7,9 @@ import React, {
 	StyleSheet,
 	Dimensions,
 	ScrollView,
-	TouchableHighlight
+	NavigatorIOS,
+	TouchableHighlight,
+	AsyncStorage
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import ResponsiveImage from 'react-native-responsive-image';
@@ -22,9 +24,17 @@ import config from '../../config.js';
 var deviceWidth = Dimensions.get('window').width;
 
 export default class Profile extends Component {
+	async _removeStorage() {
+		try {
+			await AsyncStorage.removeItem("token");
+			console.log('Register Selection removed from disk.');
+		} catch (error) {
+			console.log('Register AsyncStorage error: ' + error.message);
+		}
+	}
 
 	logout(){
-		console.log("logout action start")
+		console.log("Register logout action start")
 		let url = config.domain + '/rest-auth/logout/';
 		fetch(url, {
 			method: 'POST',
@@ -35,7 +45,7 @@ export default class Profile extends Component {
 			body: JSON.stringify({
 				token: '0022855a3bb585d919d098807cd511050c39ba01',
 			})
-		}).then((response) => console.log('logout response: ', response))
+		}).then((response) => console.log('Register logout response: ', response))
 	}
 
 	render(){
@@ -53,16 +63,33 @@ export default class Profile extends Component {
 				<View style={{ marginTop: 20 }}>
 					<TouchableHighlight
 						underlayColor="transparent"
+						onPress={()=> Actions.login()}>
+						<Text style={styles.textCenter}>
+							<Text style={{color: '#06bebd'}}> Войти</Text>
+						</Text>
+					</TouchableHighlight>
+				</View>
+				<View style={{ marginTop: 20 }}>
+					<TouchableHighlight
+						underlayColor="transparent"
 						onPress={()=>this.logout()}>
 						<Text style={styles.textCenter}>
 							<Text style={{color: '#06bebd'}}> Выйти</Text>
 						</Text>
 					</TouchableHighlight>
 				</View>
+				<View style={{ marginTop: 20 }}>
+					<TouchableHighlight
+						underlayColor="transparent"
+						onPress={this._removeStorage}>
+						<Text style={styles.textCenter}>
+							<Text style={{color: '#06bebd'}}> удалить token из storage</Text>
+						</Text>
+					</TouchableHighlight>
+				</View>
 			</ScrollView>
 		)
 	}
-
 }
 
 
