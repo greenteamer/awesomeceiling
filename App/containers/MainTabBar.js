@@ -12,12 +12,12 @@ import React, {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Login from '../auth/Login.js';
-import Register from '../auth/Register.js';
-import Profile from '../auth/Profile.js';
-import Projects from '../projects/Projects.js';
-import Settings from '../projects/Settings.js';
-import Home from '../../containers/Home.js'
+import Login from '../components/auth/Login.js';
+import Register from '../components/auth/Register.js';
+import Profile from './Profile.js';
+import Projects from './Projects.js';
+import Settings from './Settings.js';
+import Home from './Home.js'
 import {Actions} from 'react-native-router-flux'
 
 

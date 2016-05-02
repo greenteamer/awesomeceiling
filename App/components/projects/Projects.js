@@ -1,5 +1,6 @@
 'use strict'; 
 import React, {
+	PropTypes,
 	ListView,
 	AsyncStorage,
 	Component,
@@ -16,18 +17,25 @@ import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
 import style_button from '../styles/style.js';
 import {Actions, Reducer} from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import {addProjectAction} from '../../actions'
+// import {store} from '../../ceilingStore.js';
 
 
-const reducerCreate = params=>{
-    const defaultReducer = Reducer(params);
-    return (state, action)=>{
-        console.log("ACTION2:", action);
-        return defaultReducer(state, action);
-    }
-};
+// const reducerCreate = params=>{
+//     const defaultReducer = Reducer(params);
+//     return (state, action)=>{
+//         console.log("ACTION2:", action);
+//         return defaultReducer(state, action);
+//     }
+// };
 
 
-export default class ListViewSimpleExample extends Component {
+class Projects extends Component {
+	static propTypes = {
+    projectsState: PropTypes.object,
+  };
+
 	statics: {
 		title: '<ListView>',
 		description: 'Performant, scrollable list of data.'
@@ -35,15 +43,36 @@ export default class ListViewSimpleExample extends Component {
 
 	constructor(props) {
 		super(props);
+		console.log("Projects constructor dispatch: ", this.props.dispatch);
+		// var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		// let items = (this.props.projectsState) ? this.props.projectsState.items : null
+		// let dataSource = ds.cloneWithRows(items);
+		// this.state = {
+		// 	dataSource: dataSource,
+		// 	token: '',
+		// };
 		this.state = {
 			dataSource: null,
 			token: '',
 		};
 	}
 
-	componentDidMount(){
-		this._loadInitialState().done();
+	componentWillMount(){
+		// this._pressData = {};
+		// setTimeout(() => {
+			this.getProjects()
+		// }, 1);
 	}
+	// _pressData(){
+	// 	return ({}: {[key: number]: boolean})	
+	// }
+
+	// componentDidMount(){
+	// 	// this._loadInitialState().done();
+	// 	setTimeout(() => {
+	// 		this.getProjects()
+	// 	}, 1);
+	// }
 
 	async _loadInitialState() {
 		try {
@@ -59,32 +88,39 @@ export default class ListViewSimpleExample extends Component {
 		}
 	}
 
+	onAddProject(){
+		// console.log("onAddProject this: ", this)
+		addProjectAction({name: 'add project name test'})
+	}
+
 	getProjects(){
-		let url = config.domain + '/api/projects/';
-		let token = 'Token ' + this.state.token
-		fetch(url, {
-			headers: {
-				'Authorization': token
-			},
+		// let url = config.domain + '/api/projects/';
+		// let token = 'Token ' + this.state.token
+		// fetch(url, {
+		// 	headers: {
+		// 		'Authorization': token
+		// 	},
+		// })
+		// .then((response) => response.json())
+		// .then((responseData) => {
+		// 	var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		// 	console.log("Projects getProjects responseData: ", responseData);
+		// 	this.setState({
+		// 			dataSource: ds.cloneWithRows(responseData),
+		// 	});
+		// })
+		console.log("Projects getProjects this.state: ", this.state);
+		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		let items = (this.props.projects) ? this.props.projects.items : null;
+		console.log("Projects getProjects items: ", items);
+		this.setState({
+			dataSource: ds.cloneWithRows(items),
+			token: '',
 		})
-		.then((response) => response.json())
-		.then((responseData) => {
-			var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-			this.setState({
-					dataSource: ds.cloneWithRows(responseData),
-			});
-		})
-	}
-
-	_pressData(){
-		return ({}: {[key: number]: boolean})	
-	}
-
-	componentWillMount(){
-		this._pressData = {};
 	}
 
 	render(){
+		console.log("Projects render this.state: ", this.state);
 		var titleConfig = {
 			title: 'Проекты',
 			tintColor: '#fff'
@@ -103,7 +139,7 @@ export default class ListViewSimpleExample extends Component {
 		var rightButton = (
 			<TouchableHighlight
 				underlayColor="transparent"
-				onPress={()=> Actions.projectDetail()}
+				onPress={()=> this.onAddProject()}
 				style={style_button.btnSmall}>
 				<Icon 
 					name="ios-plus" 
@@ -115,7 +151,7 @@ export default class ListViewSimpleExample extends Component {
 	  return <Text>Loading...</Text>;
 	}
 		return (
-			<View>
+			<View style={styles.view}>
 				<NavigationBar
 					title={titleConfig}
 					leftButton={leftButton}
@@ -123,6 +159,7 @@ export default class ListViewSimpleExample extends Component {
 					tintColor="#2c3239"
 					statusBar={{style:'light-content'}}/>
 				<ListView
+					style={styles.listView}
 					dataSource={this.state.dataSource}
 					renderRow={this._renderRow}
 					renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
@@ -135,8 +172,7 @@ export default class ListViewSimpleExample extends Component {
 			<TouchableHighlight onPress={() => Actions.projectDetail({project: rowData})}>
 				<View>
 					<View style={styles.row}>
-						<Text style={styles.text}
-							source={{html: rowData.text}}>
+						<Text style={styles.text}>
 							{rowData.name}
 						</Text>
 					</View>
@@ -147,7 +183,17 @@ export default class ListViewSimpleExample extends Component {
 }
 
 
+export default connect(({projectsState}) => ({projectsState}))(Projects);
+
+
 var styles = StyleSheet.create({
+	view:{
+		flex: 1,
+		marginTop: 0
+	},
+	listView: {
+		marginTop: -20
+	},
 	firstRow: {
 		marginTop: -20,
 		flexDirection: 'row',
@@ -173,3 +219,4 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 });
+

@@ -11,7 +11,7 @@ import React, {
 
 import style from '../styles/style.js';
 
-export default class Button extends Component {
+export default class BTN extends Component {
     render() {
         return(
             <TouchableHighlight
