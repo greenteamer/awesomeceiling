@@ -1,8 +1,8 @@
-'use strict'; 
-import React, {
+'use strict';
+import React, { Component } from 'react';
+import {
 	ListView,
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -80,21 +80,21 @@ export default class Settings extends Component {
 					<TouchableHighlight
 						onPress={()=> this._setCurrentTab('price')}
 						style={styles.topTabBarItem}>
-						<Text 
+						<Text
 							style={(this.state.currentTab == 'price') ? styles.topTabBarTextSelected : styles.topTabBarText}>
 							Цены</Text>
 					</TouchableHighlight>
 					<TouchableHighlight
 						onPress={()=> this._setCurrentTab('contacts')}
 						style={styles.topTabBarItem}>
-						<Text 
+						<Text
 							style={(this.state.currentTab == 'contacts') ? styles.topTabBarTextSelected : styles.topTabBarText}>
 							Контакты</Text>
 					</TouchableHighlight>
 					<TouchableHighlight
 						onPress={()=> this._setCurrentTab('materials')}
 						style={styles.topTabBarItem}>
-						<Text 
+						<Text
 							style={(this.state.currentTab == 'materials') ? styles.topTabBarTextSelected : styles.topTabBarText}>
 							Материалы</Text>
 					</TouchableHighlight>

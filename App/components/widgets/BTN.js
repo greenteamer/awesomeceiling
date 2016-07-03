@@ -1,10 +1,9 @@
 /* @flow */
 'use strict';
-
-import React, {
-    Component, 
-    Text, 
-    View, 
+import React, { Component } from 'react';
+import {
+    Text,
+    View,
     StyleSheet,
     Dimensions,
     TouchableHighlight } from 'react-native';
@@ -19,9 +18,9 @@ export default class BTN extends Component {
                 underlayColor="#B5B5B5"
                 onPress={this.props.onPress}>
                     <Text style={style.btnText}>{this.props.text}</Text>
-            </TouchableHighlight> 
+            </TouchableHighlight>
         );
-    }    
+    }
 }
 
 

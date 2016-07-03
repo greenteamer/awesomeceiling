@@ -1,13 +1,13 @@
 /* @flow */
 'use strict';
-
-import React, {
-    Component, 
-    Text, 
-    View, 
+import React, { Component } from 'react';
+import {
+    Text,
+    View,
     StyleSheet,
     Dimensions,
-    TouchableHighlight } from 'react-native';
+    TouchableHighlight
+} from 'react-native';
 
 export default class Button extends Component {
     render() {
@@ -17,9 +17,9 @@ export default class Button extends Component {
                 underlayColor="#B5B5B5"
                 onPress={this.props.onPress}>
                     <Text style={styles.buttonText}>{this.props.text}</Text>
-            </TouchableHighlight> 
+            </TouchableHighlight>
         );
-    }    
+    }
 }
 
 var deviceWidth = Dimensions.get('window').width;

@@ -2,10 +2,9 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-
-import React, {
+import React, { Component } from 'react';
+import {
 	AppRegistry,
-	Component,
 	StyleSheet,
 	Text,
 	View,
@@ -70,42 +69,42 @@ export default class RootRouter extends Component {
 				<RouterWithRedux>
 					<Scene key="root">
 
-						<Scene 
-							key="MainTabBar" 
+						<Scene
+							key="MainTabBar"
 							title="MainTabBar"
 							hideNavBar={true}
 							component={MainTabBar}>
 						</Scene>
 
-						<Scene 
-							key="profile" 
-							component={Profile} 
+						<Scene
+							key="profile"
+							component={Profile}
 							title="Profile"
 							hideNavBar={true}/>
 
-						<Scene 
-							key="register" 
-							component={Register} 
-							title="Register" 
+						<Scene
+							key="register"
+							component={Register}
+							title="Register"
 							hideNavBar={true}/>
 
-						<Scene 
-							key="login" 
+						<Scene
+							key="login"
 							component={Login}
 							hideNavBar={true}/>
 
-						<Scene 
-							key="settings" 
+						<Scene
+							key="settings"
 							component={Settings}
 							hideNavBar={true}/>
 
-						<Scene 
-							key="projectDetail" 
+						<Scene
+							key="projectDetail"
 							component={ProjectDetail}
 							hideNavBar={true}/>
 
-						<Scene 
-							key="addProject" 
+						<Scene
+							key="addProject"
 							component={AddProject}
 							direction="vertical"
 							hideNavBar={true}/>

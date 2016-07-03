@@ -1,8 +1,8 @@
-'use strict'; 
-import React, {
+'use strict';
+import React, { Component } from 'react';
+import {
 	ListView,
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -50,10 +50,10 @@ export default class ListViewSimpleExample extends Component {
 		}
 	}
 
-	
+
 
 	_pressData(){
-		return ({}: {[key: number]: boolean})	
+		return ({}: {[key: number]: boolean})
 	}
 
 	componentWillMount(){
@@ -71,9 +71,9 @@ export default class ListViewSimpleExample extends Component {
 				underlayColor="transparent"
 				onPress={()=> Actions.pop()}
 				style={style_button.btnSmall}>
-				<Icon 
-					name="ios-arrow-left" 
-					size={25} 
+				<Icon
+					name="ios-arrow-left"
+					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
 		)
@@ -82,10 +82,10 @@ export default class ListViewSimpleExample extends Component {
 				underlayColor="transparent"
 				onPress={()=> this.saveProject()}
 				style={style_button.btnSmall}>
-				<Icon 
-					name="ios-checkmark" 
-					size={25} 
-					color="#06bebd"/>	
+				<Icon
+					name="ios-checkmark"
+					size={25}
+					color="#06bebd"/>
 			</TouchableHighlight>
 		)
 		return (
@@ -97,7 +97,7 @@ export default class ListViewSimpleExample extends Component {
 					tintColor="#2c3239"
 					statusBar={{style:'light-content'}}/>
 				<View style={styles.view}>
-					<ProjectForm 
+					<ProjectForm
 						project={this.props.project}
 						propFunc={this.props.propFunc}/>
 				</View>

@@ -1,6 +1,6 @@
-import React, {
+import React, { Component } from 'react';
+import {
 	PropTypes,
-	Component,
 	View,
 	Text,
 	ScrollView,
@@ -37,13 +37,13 @@ export default class Projectlist extends Component {
 }
 
 
-Projectlist.PropTypes = {
-	projects: PropTypes.shape({
-		items: PropTypes.arrayOf(PropTypes.shape({
-			name: PropTypes.string.isRequired
-		}).isRequired).isRequired
-	})
-}
+// Projectlist.PropTypes = {
+// 	projects: PropTypes.shape({
+// 		items: PropTypes.arrayOf(PropTypes.shape({
+// 			name: PropTypes.string.isRequired
+// 		}).isRequired).isRequired
+// 	})
+// }
 
 
 var styles = StyleSheet.create({

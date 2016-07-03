@@ -1,8 +1,8 @@
-'use strict'; 
-import React, {
+'use strict';
+import React, { Component } from 'react';
+import {
 	ListView,
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -76,7 +76,7 @@ export default class ContactList extends Component {
 			<ScrollView>
 				<View style={styles.view}>
 					<View>
-						<Text 
+						<Text
 							style={styles.h1Center}>Мои данные:</Text>
 						<ContactForm />
 					</View>
@@ -148,7 +148,7 @@ var styles = StyleSheet.create({
 		flexDirection:'row',
 	},
 	textInput: {
-		height: 40, 
+		height: 40,
 		fontSize: 12,
 		width: 200,
 		textAlign: 'center',

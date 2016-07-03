@@ -1,6 +1,6 @@
-import React, {
+import React, { Component } from 'react';
+import {
 	PropTypes,
-	Component,
 	View,
 	Text,
 	TouchableHighlight,
@@ -26,10 +26,10 @@ export default class Project extends Component {
 }
 
 
-Project.PropTypes = {
-	onPress: PropTypes.func.isRequired,
-	name: PropTypes.string.isRequired
-}
+// Project.PropTypes = {
+// 	onPress: PropTypes.func.isRequired,
+// 	name: PropTypes.string.isRequired
+// }
 
 
 var styles = StyleSheet.create({

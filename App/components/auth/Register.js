@@ -1,5 +1,5 @@
-import React, {
-	Component,
+import React, { Component } from 'react';
+import {
 	View,
 	Text,
 	Image,
@@ -93,18 +93,18 @@ export default class Register extends Component {
 						Постройте свою идеальную компанию
 					</Text>
 				</View>
-				<View> 
-					<View style={styles.formGroup}> 
+				<View>
+					<View style={styles.formGroup}>
 						<TextInput
 							style={styles.textInput}
 							placeholder={'имя пользователя'}
-							placeholderTextColor={'#bcc5c9'} 
+							placeholderTextColor={'#bcc5c9'}
 							onChangeText={(value) => this.setState({username: value})}
 							value={this.state.value} />
 						<TextInput
 							style={styles.textInput}
 							placeholder={'email'}
-							placeholderTextColor={'#bcc5c9'} 
+							placeholderTextColor={'#bcc5c9'}
 							onChangeText={(value) => this.setState({email: value})}
 							value={this.state.value} />
 						<TextInput

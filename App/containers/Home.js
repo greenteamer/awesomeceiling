@@ -1,9 +1,9 @@
 'use strict';
-import React, {
+import React, { Component } from 'react';
+import {
 	ListView,
 	PropTypes,
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -74,13 +74,13 @@ class Home extends Component {
 }
 
 
-Home.PropTypes = {
-	projects: PropTypes.shape({
-		items: PropTypes.arrayOf(PropTypes.shape({
-			name: PropTypes.string.isRequired
-		}).isRequired).isRequired
-	})
-}
+// Home.PropTypes = {
+// 	projects: PropTypes.shape({
+// 		items: PropTypes.arrayOf(PropTypes.shape({
+// 			name: PropTypes.string.isRequired
+// 		}).isRequired).isRequired
+// 	})
+// }
 
 
 // Какие именно props мы хотим получить из приходящего, как аргумент глобального состояния?

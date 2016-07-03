@@ -1,5 +1,5 @@
-import React, {
-	Component, 
+import React, { Component } from 'react';
+import {
 	PropTypes,
 	View,
 	TextInput,
@@ -78,9 +78,9 @@ export default class ProjectForm extends Component {
 }
 
 
-ProjectForm.PropTypes = {
-	onAddPress: PropTypes.func.isRequired
-}
+// ProjectForm.PropTypes = {
+// 	onAddPress: PropTypes.func.isRequired
+// }
 
 
 var deviceWidth = Dimensions.get('window').width;

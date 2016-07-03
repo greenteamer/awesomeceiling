@@ -1,9 +1,9 @@
-'use strict'; 
-import React, {
+'use strict';
+import React, { Component } from 'react';
+import {
 	ListView,
 	PropTypes,
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -30,12 +30,12 @@ class Projects extends Component {
 		const { dispatch, projects } = this.props;
 		return (
 			<View style={styles.container}>
-				<Nav 
+				<Nav
 					title="Создание проекта"
 					leftIconName="ios-close"
 					onLeftButtonPress={this.onLeftButtonPress}/>
 				<ScrollView>
-					<ProjectForm 
+					<ProjectForm
 						onAddPress={(project) => dispatch(addProjectAction(project))}/>
 				</ScrollView>
 			</View>
@@ -53,13 +53,13 @@ class Projects extends Component {
 }
 
 
-Projects.PropTypes = {
-	projects: PropTypes.shape({
-		items: PropTypes.arrayOf(PropTypes.shape({
-			name: PropTypes.string.isRequired
-		}).isRequired).isRequired
-	})
-}
+// Projects.PropTypes = {
+// 	projects: PropTypes.shape({
+// 		items: PropTypes.arrayOf(PropTypes.shape({
+// 			name: PropTypes.string.isRequired
+// 		}).isRequired).isRequired
+// 	})
+// }
 
 
 // Какие именно props мы хотим получить из приходящего, как аргумент глобального состояния?

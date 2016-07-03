@@ -1,6 +1,6 @@
-import React, {
+import React, { Component } from 'react';
+import {
 	AsyncStorage,
-	Component,
 	View,
 	Text,
 	Image,
@@ -139,18 +139,18 @@ export default class Login extends Component {
 						Постройте свою идеальную компанию
 					</Text>
 				</View>
-				<View> 
-					<View style={styles.formGroup}> 
+				<View>
+					<View style={styles.formGroup}>
 						<TextInput
 							style={styles.textInput}
 							placeholder={'email'}
-							placeholderTextColor={'#bcc5c9'} 
+							placeholderTextColor={'#bcc5c9'}
 							onChangeText={(value) => this.setState({email: value})}/>
 						<TextInput
 							style={styles.textInput}
 							placeholder={'пароль'}
 							secureTextEntry={true}
-							placeholderTextColor={'#bcc5c9'} 
+							placeholderTextColor={'#bcc5c9'}
 							onChangeText={(value) => this.setState({password: value})}/>
 					</View>
 					<BTNBig
@@ -207,9 +207,9 @@ class RightButton extends Component {
 			<TouchableHighlight
 				underlayColor="transparent"
 				onPress={()=> console.log("Login test: ")}>
-				<Icon 
-					name="ios-home" 
-					size={30} 
+				<Icon
+					name="ios-home"
+					size={30}
 					color="#900"/>
 			</TouchableHighlight>
 		)

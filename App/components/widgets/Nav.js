@@ -1,5 +1,5 @@
-import React, {
-	Component,
+import React, { Component } from 'react';
+import {
 	TouchableHighlight,
 	StyleSheet
 } from 'react-native';
@@ -19,9 +19,9 @@ export default class Nav extends Component {
 				underlayColor="transparent"
 				onPress={this.props.onLeftButtonPress}
 				style={styles.btnSmall}>
-				<Icon 
-					name={this.props.leftIconName ? this.props.leftIconName : "ios-arrow-left"} 
-					size={25} 
+				<Icon
+					name={this.props.leftIconName ? this.props.leftIconName : "ios-arrow-left"}
+					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
 		)
@@ -30,9 +30,9 @@ export default class Nav extends Component {
 				underlayColor="transparent"
 				onPress={this.props.onRightButtonPress}
 				style={styles.btnSmall}>
-				<Icon 
-					name={this.props.rightIconName ? this.props.rightIconName : "ios-plus"} 
-					size={25} 
+				<Icon
+					name={this.props.rightIconName ? this.props.rightIconName : "ios-plus"}
+					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
 		)
