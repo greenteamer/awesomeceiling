@@ -4,6 +4,7 @@ import {
 	Dimensions
 } from 'react-native';
 
+
 var primary = require('./variable.js').brandPrimary;
 var secondary = require('./variable.js').brandSecondary;
 
@@ -39,12 +40,12 @@ export default StyleSheet.create({
 	},
 	borderBottom: {
 		position:'relative',
-		borderColor: 'white', 
-		borderWidth: 0.8, 
-		borderTopWidth: 0, 
-		borderRightWidth: 0, 
-		borderLeftWidth: 0, 
-		margin: 15, 
+		borderColor: 'white',
+		borderWidth: 0.8,
+		borderTopWidth: 0,
+		borderRightWidth: 0,
+		borderLeftWidth: 0,
+		margin: 15,
 		marginTop: 5,
 	},
 	bg : {
@@ -160,7 +161,7 @@ export default StyleSheet.create({
 		marginBottom: 25
 	},
 	textInput: {
-		height: 40, 
+		height: 40,
 		fontSize: 12,
 		width: deviceWidth-100,
 		textAlign: 'center',

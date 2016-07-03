@@ -2,10 +2,10 @@
 'use strict';
 
 import React, {
-	Component, 
-	Text, 
+	Component,
+	Text,
 	View,
-	ScrollView, 
+	ScrollView,
 	StyleSheet,
 	TabBarIOS,
 	TouchableHighlight } from 'react-native';

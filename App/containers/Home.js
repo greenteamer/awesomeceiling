@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 import React, {
 	ListView,
 	PropTypes,
@@ -41,11 +41,11 @@ class Home extends Component {
 		var rightButton = (
 			<TouchableHighlight
 				underlayColor="transparent"
-				onPress={()=> Actions.pop(<AddProject/>)}
+				onPress={()=> Actions.addProject()}
 				style={style_button.btnSmall}>
-				<Icon 
-					name="ios-plus" 
-					size={25} 
+				<Icon
+					name="ios-plus"
+					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
 		)
@@ -57,9 +57,9 @@ class Home extends Component {
 					tintColor="#2c3239"
 					statusBar={{style:'light-content'}}/>
 				<ScrollView>
-					<ProjectForm 
+					<ProjectForm
 						onAddPress={(project) => dispatch(addProjectAction(project))}/>
-					<ProjectList 
+					<ProjectList
 						projects={projects}
 						onProjectPress={this.onProjectPress.bind(this)}/>
 				</ScrollView>
