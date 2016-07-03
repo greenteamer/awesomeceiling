@@ -1,22 +1,23 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-
-import React, {
+import React, { Component } from 'react';
+import {
 	AppRegistry,
-	Component,
-	StyleSheet,
-	Text,
-	View
 } from 'react-native';
-import App from './App/App.js'
+import RootRouter from './App/RootRouter.js'
+// const Realm = require('realm');
+
 
 class AwesomeCeiling extends Component {
 	render() {
+		// let realm = new Realm({
+		// 	schema: [{name: 'Dog', properties: {name: 'string'}}]
+		// });
+		// realm.write(() => {
+		// 	realm.create('Dog', {name: 'Rex'});
+		// });
+		// console.log('Count of Dogs in Realm: ', realm.objects('Dog').length);
 		return (
-			<App />
-		);
+			<RootRouter />
+		)
 	}
 }
 
