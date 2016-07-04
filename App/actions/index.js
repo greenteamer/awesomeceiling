@@ -1,4 +1,6 @@
-export const ADD_PROJECT = 'ADD_PROJECT'
+import {
+	ADD_PROJECT,
+} from '@constants';
 
 
 export const addProjectAction = (project) => {

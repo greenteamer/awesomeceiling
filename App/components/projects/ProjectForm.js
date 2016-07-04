@@ -1,88 +1,15 @@
-'use strict';
 import React, { Component } from 'react';
 import {
-	ListView,
-	AsyncStorage,
+	PropTypes,
 	View,
-	Text,
-	Image,
 	TextInput,
 	StyleSheet,
-	Dimensions,
-	ScrollView,
-	StatusBar,
-	TouchableHighlight
-} from 'react-native';
-import NavigationBar from 'react-native-navbar';
-import Icon          from 'react-native-vector-icons/Ionicons';
-import BTN           from '../widgets/BTN.js';
-import common_styles from '../styles/style.js';
-import _             from 'lodash';
+	Dimensions} from 'react-native';
+import BTN from '@appComponents/widgets/BTN.js';
 
-export default class ContactForm extends Component {
-	statics: {
-		title: '<ContactForm>',
-		description: 'Performant, scrollable list of data.'
-	}
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			token   : "",
-			project : (this.props.project) ? this.props.project         : null,
-			name    : (this.props.project) ? this.props.project.name    : '',
-			address : (this.props.project) ? this.props.project.address : '',
-			phone   : (this.props.project) ? this.props.project.phone   : '',
-			email   : (this.props.project) ? this.props.project.email   : '',
-			price   : (this.props.project) ? this.props.project.price   : 0,
-			text    : (this.props.project) ? this.props.project.text    : '',
-		}
-	}
-
-	componentDidMount(){
-		this._loadInitialState().done();
-	}
-
-	async _loadInitialState() {
-		try {
-			var value = await AsyncStorage.getItem("token");
-			if (value !== null){
-				this.setState({token: value});
-			} else {
-				null
-			}
-		} catch (error) {
-			null
-		}
-	}
-
-	_updateProject(){
-		let url = config.domain + '/api/projects/' + this.props.project.id + '/';
-		let token = 'Token ' + this.state.token;
-		fetch(url, {
-			method: 'PATCH',
-			headers: {
-				'Accept'       : 'application/json',
-				'Content-Type' : 'application/json',
-				'Authorization': token
-			},
-			body: JSON.stringify({
-				name    : this.state.name,
-				address : this.state.address,
-				phone   : this.state.phone,
-				email   : this.state.email,
-				price   : this.state.price,
-				text    : this.state.text
-			})
-		})
-		.then((response) => response.json())
-		.then((responseData) => {
-
-		})
-	}
-
+export default class ProjectForm extends Component {
 	render(){
-		return (
+		return(
 			<View style={styles.view}>
 				<TextInput
 					style                = {styles.textInput}
@@ -117,18 +44,50 @@ export default class ContactForm extends Component {
 					value                = {this.state.email}
 				/>
 				<BTN
-					style={common_styles.btnLeft}
-					onPress = {() => this._updateProject()}
+					style   = {styles.btnCenter}
+					onPress = {e => this.handleClick(e)}
 					text    = "Сохранить" />
 			</View>
-		);
+		)
+	}
+
+	handleClick(e){
+		console.log("AddProject handleClick start state: ", this.state);
+		this.props.onAddPress({
+			name    : this.state.name,
+			address : this.state.address,
+			phone   : this.state.phone,
+			email   : this.state.email,
+			price   : this.state.price,
+			text    : this.state.text,
+		})
+	}
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			project : null,
+			name    : "",
+			address : "",
+			phone   : "",
+			email   : "",
+			price   : "",
+			text    : "",
+		}
 	}
 }
+
+
+// ProjectForm.PropTypes = {
+// 	onAddPress: PropTypes.func.isRequired
+// }
+
 
 var deviceWidth = Dimensions.get('window').width;
 var styles = StyleSheet.create({
 	view: {
-		marginBottom: 20
+		// marginBottom: 20
+		padding: 10
 	},
 	textInput: {
 		height          : 40,
@@ -139,5 +98,24 @@ var styles = StyleSheet.create({
 		color           : '#696d6f',
 		paddingLeft     : 10,
 		marginBottom    : 12
+	},
+	btnLeft: {
+		backgroundColor: '#06bebd',
+		padding: 5,
+		borderColor: 'transparent',
+		borderWidth: 1,
+		borderRadius: 20,
+		width: deviceWidth-150,
+		height: 35
+	},
+	btnCenter: {
+		backgroundColor: '#06bebd',
+		padding: 10,
+		borderColor: 'transparent',
+		borderWidth: 1,
+		alignSelf: 'center',
+		borderRadius: 25,
+		width: deviceWidth-20,
+		height: 45
 	},
 });

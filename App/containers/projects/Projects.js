@@ -13,58 +13,38 @@ import {
 	ScrollView,
 	TouchableHighlight
 } from 'react-native';
-import NavigationBar from 'react-native-navbar';
-import Icon from 'react-native-vector-icons/Ionicons';
-import style_button from '../components/styles/style.js';
-import ProjectForm from '../components/projects/redux/ProjectForm.js';
-import ProjectList from '../components/projects/redux/Projectlist.js';
 
+
+import style_button from '@appStyles/style.js';
+import ProjectForm from '@appComponents/projects/ProjectForm.js';
+import ProjectList from '@appComponents/projects/Projectlist.js';
+import Nav from '@appComponents/widgets/Nav.js';
 import {Actions} from 'react-native-router-flux';
 
 import { connect } from 'react-redux'
-import {addProjectAction} from '../actions';
+import { addProjectAction } from '@actions';
 
 
-class Home extends Component {
-	statics: {
-		title: '<Home>',
-		description: 'Performant, scrollable list of data.'
-	}
-
+class Projects extends Component {
 	render(){
-		console.log("Home render this.props: ", this.props)
-		const { dispatch, projects } = this.props
-		var titleConfig = {
-			title: 'Home page',
-			tintColor: '#fff'
-		};
-		var rightButton = (
-			<TouchableHighlight
-				underlayColor="transparent"
-				onPress={()=> Actions.addProject()}
-				style={style_button.btnSmall}>
-				<Icon
-					name="ios-plus"
-					size={25}
-					color="#06bebd"/>
-			</TouchableHighlight>
-		)
+		const { dispatch, projects } = this.props;
 		return (
 			<View style={styles.container}>
-				<NavigationBar
-					title={titleConfig}
-					rightButton={rightButton}
-					tintColor="#2c3239"
-					statusBar={{style:'light-content'}}/>
+				<Nav
+					title="Проекты"
+					onRightButtonPress={this.onRightButtonPress}/>
 				<ScrollView>
-					<ProjectForm
-						onAddPress={(project) => dispatch(addProjectAction(project))}/>
 					<ProjectList
 						projects={projects}
 						onProjectPress={this.onProjectPress.bind(this)}/>
 				</ScrollView>
 			</View>
 		);
+	}
+
+	onRightButtonPress(){
+		console.log("Projects onRightButtonPress start");
+		Actions.addProject()
 	}
 
 	onProjectPress(project, rowID){
@@ -74,7 +54,7 @@ class Home extends Component {
 }
 
 
-// Home.PropTypes = {
+// Projects.PropTypes = {
 // 	projects: PropTypes.shape({
 // 		items: PropTypes.arrayOf(PropTypes.shape({
 // 			name: PropTypes.string.isRequired
@@ -94,7 +74,7 @@ function select(state) {
 }
 
 // Оборачиваем компонент `App` для внедрения в него функции `dispatch` и состояния
-export default connect(select)(Home)
+export default connect(select)(Projects)
 
 
 var styles = StyleSheet.create({

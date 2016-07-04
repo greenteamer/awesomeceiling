@@ -1,4 +1,4 @@
-import {ADD_PROJECT} from '../actions';
+import { ADD_PROJECT } from '@actions';
 
 const initialState = {
 	items: [

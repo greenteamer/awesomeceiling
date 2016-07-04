@@ -8,7 +8,7 @@ import {
     Dimensions,
     TouchableHighlight } from 'react-native';
 
-import style from '../styles/style.js';
+import style from '@appStyles/style.js';
 
 export default class BTN extends Component {
     render() {

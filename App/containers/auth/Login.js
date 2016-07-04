@@ -14,12 +14,12 @@ import {Actions} from 'react-native-router-flux'
 import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ButtonRounded from '../widgets/ButtonRounded.js';
-import BTNBig from '../widgets/BTNBig.js';
-import styles from '../styles/style.js';
-import gradient from '../styles/gradient.js';
+import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
+import BTNBig from '@appComponents/widgets/BTNBig.js';
+import styles from '@appStyles/style.js';
+import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
-import config from '../../config.js';
+import config from '@appRoot/config.js';
 
 var deviceWidth = Dimensions.get('window').width;
 
@@ -94,7 +94,7 @@ export default class Login extends Component {
 				console.log("Login auth responce: ", responseText);
 				let token = JSON.parse(responseText).key;
 				this._onTokenChange(token);
-				Actions.profile()
+				Actions.MainTabBar()
 			});
 	}
 
@@ -131,7 +131,7 @@ export default class Login extends Component {
 				rightButton={<RightButton/>} />
 			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 80, marginBottom: 20}}>
-					<Image style={{alignSelf: 'center'}} source={require('../img/icon.png')}/>
+					<Image style={{alignSelf: 'center'}} source={require('@images/icon.png')}/>
 					<Text style={styles.h1Center}>
 						Авторизация
 					</Text>

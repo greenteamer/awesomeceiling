@@ -14,9 +14,9 @@ import {
 } from 'react-native';
 import _             from 'lodash';
 import NavigationBar from 'react-native-navbar';
-import ProjectForm   from './ProjectForm.js';
+import ProjectForm   from '@appComponents/projects/ProjectForm.js';
 import Icon          from 'react-native-vector-icons/Ionicons';
-import style_button  from '../styles/style.js';
+import style_button  from '@appStyles/style.js';
 import {Actions}     from 'react-native-router-flux';
 
 
@@ -72,7 +72,7 @@ export default class ListViewSimpleExample extends Component {
 				onPress={()=> Actions.pop()}
 				style={style_button.btnSmall}>
 				<Icon
-					name="ios-arrow-left"
+					name="ios-arrow-back"
 					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>

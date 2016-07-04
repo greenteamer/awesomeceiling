@@ -15,10 +15,10 @@ import {
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
-import style_button from '../styles/style.js';
-import PriceList from './PriceList.js';
-import ContactList from './ContactList.js';
-import MaterialList from './MaterialList.js';
+import style_button from '@appStyles/style.js';
+import PriceList from '@appComponents/settings/PriceList.js';
+import ContactList from '@appComponents/settings/ContactList.js';
+import MaterialList from '@appComponents/settings/MaterialList.js';
 
 export default class Settings extends Component {
 	statics: {

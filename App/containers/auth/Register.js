@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 
-import ButtonRounded from '../widgets/ButtonRounded.js';
-import BTNBig from '../widgets/BTNBig.js';
-import styles from '../styles/style.js';
-import gradient from '../styles/gradient.js';
+import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
+import BTNBig from '@appComponents/widgets/BTNBig.js';
+import styles from '@appStyles/style.js';
+import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
-import config from '../../config.js';
+import config from '@appRoot/config.js';
 
 // import realm from '../../models/realm.js';
 
@@ -85,7 +85,7 @@ export default class Register extends Component {
 		return(
 			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 80, marginBottom: 20}}>
-					<Image style={{alignSelf: 'center'}} source={require('../img/icon.png')}/>
+					<Image style={{alignSelf: 'center'}} source={require('@images/icon.png')}/>
 					<Text style={styles.h1Center}>
 						Регистрация
 					</Text>

@@ -9,7 +9,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-import style from '../styles/style.js';
+import style from '@appStyles/style.js';
 
 export default class Button extends Component {
     render() {

@@ -20,7 +20,7 @@ export default class Nav extends Component {
 				onPress={this.props.onLeftButtonPress}
 				style={styles.btnSmall}>
 				<Icon
-					name={this.props.leftIconName ? this.props.leftIconName : "ios-arrow-left"}
+					name={this.props.leftIconName ? this.props.leftIconName : "ios-arrow-back"}
 					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
@@ -31,7 +31,7 @@ export default class Nav extends Component {
 				onPress={this.props.onRightButtonPress}
 				style={styles.btnSmall}>
 				<Icon
-					name={this.props.rightIconName ? this.props.rightIconName : "ios-plus"}
+					name={this.props.rightIconName ? this.props.rightIconName : "ios-add"}
 					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>

@@ -15,14 +15,14 @@ import {
 } from 'react-native';
 
 
-import style_button from '../components/styles/style.js';
-import ProjectForm from '../components/projects/redux/ProjectForm.js';
-import ProjectList from '../components/projects/redux/Projectlist.js';
-import Nav from '../components/widgets/Nav.js';
+import style_button from '@appStyles/style.js';
+import ProjectForm from '@appComponents/projects/ProjectForm.js';
+import ProjectList from '@appComponents/projects/Projectlist.js';
+import Nav from '@appComponents/widgets/Nav.js';
 import {Actions} from 'react-native-router-flux';
 
 import { connect } from 'react-redux'
-import {addProjectAction} from '../actions';
+import { addProjectAction } from '@actions';
 
 
 class Projects extends Component {
@@ -31,25 +31,24 @@ class Projects extends Component {
 		return (
 			<View style={styles.container}>
 				<Nav
-					title="Проекты"
-					onRightButtonPress={this.onRightButtonPress}/>
+					title="Создание проекта"
+					leftIconName="ios-close"
+					onLeftButtonPress={this.onLeftButtonPress}/>
 				<ScrollView>
-					<ProjectList
-						projects={projects}
-						onProjectPress={this.onProjectPress.bind(this)}/>
+					<ProjectForm
+						onAddPress={(project) => dispatch(addProjectAction(project))}/>
 				</ScrollView>
 			</View>
 		);
 	}
 
 	onRightButtonPress(){
-		console.log("Projects onRightButtonPress start");
-		Actions.addProject()
+		console.log("AddProjects onRightButtonPress start");
 	}
 
-	onProjectPress(project, rowID){
-		console.log("Home onProjectPress start")
-		Actions.projectDetail({project: project})
+	onLeftButtonPress(){
+		console.log("AddProjects onLeftButtonPress start");
+		Actions.pop()
 	}
 }
 

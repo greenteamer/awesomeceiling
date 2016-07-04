@@ -15,21 +15,22 @@ import {
 import {Actions, Scene, Router, Route, Schema, Modal, Reducer, NavBar} from 'react-native-router-flux';
 
 import NavigationBar   from 'react-native-navbar';
-import Login           from './components/auth/Login.js';
-import Register        from './components/auth/Register.js';
-import Profile         from './components/auth/Profile.js';
-import MainTabBar      from './containers/MainTabBar.js';
-import Settings        from './components/projects/Settings.js';
-import ProjectDetail   from './components/projects/ProjectDetail.js';
-// import ProjectForm     from './components/projects/ProjectForm.js';
-import AddProject 		 from './containers/AddProject.js';
-// import AppEventEmitter from './Services/AppEventEmitter';
+
+
+import Login           from '@appContainers/auth/Login.js';
+import Register        from '@appContainers/auth/Register.js';
+import Profile         from '@appContainers/auth/Profile.js';
+import MainTabBar      from '@appContainers/MainTabBar.js';
+import Projects 			 from '@appContainers/projects/Projects.js';
+import ProjectDetail   from '@appContainers/projects/ProjectDetail.js';
+import AddProject 		 from '@appContainers/projects/AddProject.js';
+import Settings        from '@appContainers/settings/Settings.js';
 
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 
 const RouterWithRedux = connect()(Router);
-import {store} from './ceilingStore.js';
+import {store} from '@appStore/ceilingStore.js';
 
 // create store...
 
@@ -53,10 +54,10 @@ export default class RootRouter extends Component {
 			var value = await AsyncStorage.getItem("token");
 			if (value !== null){
 				this.setState({token: value});
-				// console.log('RootRouter Recovered selection from disk: ' + value);
+				console.log('RootRouter Recovered selection from disk: ' + value);
 			} else {
 				// console.log('RootRouter Initialized with no selection on disk.');
-				Actions.login();
+				Actions.auth();
 			}
 		} catch (error) {
 			console.log('RootRouter AsyncStorage error: ' + error.message);
@@ -67,48 +68,17 @@ export default class RootRouter extends Component {
 		return (
 			<Provider store={store}>
 				<RouterWithRedux>
-					<Scene key="root">
-
-						<Scene
-							key="MainTabBar"
-							title="MainTabBar"
-							hideNavBar={true}
-							component={MainTabBar}>
+					<Scene key="root" hideNavBar>
+						<Scene key="MainTabBar" title="MainTabBar" component={MainTabBar} />
+						<Scene key="auth" direction="vertical" hideNavBar>
+							<Scene key="profile" component={Profile} title="Profile" />
+							<Scene key="login" component={Login} title="Login" />
+							<Scene key="register" component={Register} title="Register" />
 						</Scene>
-
-						<Scene
-							key="profile"
-							component={Profile}
-							title="Profile"
-							hideNavBar={true}/>
-
-						<Scene
-							key="register"
-							component={Register}
-							title="Register"
-							hideNavBar={true}/>
-
-						<Scene
-							key="login"
-							component={Login}
-							hideNavBar={true}/>
-
-						<Scene
-							key="settings"
-							component={Settings}
-							hideNavBar={true}/>
-
-						<Scene
-							key="projectDetail"
-							component={ProjectDetail}
-							hideNavBar={true}/>
-
-						<Scene
-							key="addProject"
-							component={AddProject}
-							direction="vertical"
-							hideNavBar={true}/>
-
+						<Scene key="settings" component={Settings} title="Settings"/>
+						<Scene key="projects" component={Projects} title="Projects"/>
+						<Scene key="addProject" component={AddProject} direction="vertical" />
+						<Scene key="projectDetail" component={ProjectDetail} title="ProjectDetail" />
 					</Scene>
 				</RouterWithRedux>
 			</Provider>

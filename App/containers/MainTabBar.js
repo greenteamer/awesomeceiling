@@ -11,12 +11,12 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Login from '../components/auth/Login.js';
-import Register from '../components/auth/Register.js';
-import Profile from './Profile.js';
-import Projects from './Projects.js';
-import Settings from './Settings.js';
-import Home from './Home.js'
+import Login from '@appContainers/auth/Login.js';
+import Register from '@appContainers/auth/Register.js';
+import Profile from '@appContainers/auth/Profile.js';
+import Projects from '@appContainers/projects/Projects.js';
+import Settings from '@appContainers/settings/Settings.js';
+import Home from '@appContainers/home/Home.js'
 import {Actions} from 'react-native-router-flux'
 
 
@@ -81,8 +81,8 @@ export default class MainTabBar extends Component {
 				</Icon.TabBarItem>
 				<Icon.TabBarItem
 					title="Настройки"
-					iconName="ios-gear-outline"
-					selectedIconName="ios-gear"
+					iconName="ios-options-outline"
+					selectedIconName="ios-options"
 					selected={this.state.selectedTab === 'settings'}
 					onPress={() => {
 						this.setState({

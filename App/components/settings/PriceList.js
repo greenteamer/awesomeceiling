@@ -15,19 +15,19 @@ import {
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
-import style_button from '../styles/style.js';
+import style_button from '@appStyles/style.js';
 import _ from 'lodash';
 
-export default class ContactList extends Component {
+export default class PriceList extends Component {
 	statics: {
-		title: '<ContactList>',
+		title: '<PriceList>',
 		description: 'Performant, scrollable list of data.'
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			materials: null,
+			price: null,
 			token: ''
 		};
 	}
@@ -41,7 +41,7 @@ export default class ContactList extends Component {
 			var value = await AsyncStorage.getItem("token");
 			if (value !== null){
 				this.setState({token: value});
-				this.getCompany();
+				this.getPrice();
 			} else {
 				null
 			}
@@ -50,9 +50,9 @@ export default class ContactList extends Component {
 		}
 	}
 
-	getCompany(){
-		let url = config.domain + '/api/materials/';
-		let token = 'Token ' + this.state.token;
+	getPrice(){
+		let url = config.domain + '/api/price/';
+		let token = 'Token ' + this.state.token
 		fetch(url, {
 			headers: {
 				'Authorization': token
@@ -60,10 +60,12 @@ export default class ContactList extends Component {
 		})
 		.then((response) => {
 			let data = JSON.parse(response._bodyText);
-			console.log('materials : ', data)
 			let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+			let array = _.map(data[0], (value, key)=>{
+				return {key: key, value: value}
+			})
 			this.setState({
-				materials: ds.cloneWithRows(data),
+					price: ds.cloneWithRows(array),
 			});
 		})
 	}
@@ -73,7 +75,7 @@ export default class ContactList extends Component {
 			<View>
 				<View style={styles.row}>
 					<Text style={styles.text}>
-						{rowData.name} - {rowData.width} - {rowData.price}
+						{rowData.key} - {rowData.value}
 					</Text>
 				</View>
 			</View>
@@ -81,12 +83,12 @@ export default class ContactList extends Component {
 	}
 
 	render(){
-		if (!this.state.materials) {
+		if (!this.state.price) {
 			return <Text>Loading...</Text>;
 		}
 		return (
 			<ListView
-				dataSource={this.state.materials}
+				dataSource={this.state.price}
 				renderRow={this._renderRow}
 				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		);

@@ -15,19 +15,19 @@ import {
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
-import style_button from '../styles/style.js';
+import style_button from '@appStyles/style.js';
 import _ from 'lodash';
 
-export default class PriceList extends Component {
+export default class ContactList extends Component {
 	statics: {
-		title: '<PriceList>',
+		title: '<ContactList>',
 		description: 'Performant, scrollable list of data.'
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			price: null,
+			materials: null,
 			token: ''
 		};
 	}
@@ -41,7 +41,7 @@ export default class PriceList extends Component {
 			var value = await AsyncStorage.getItem("token");
 			if (value !== null){
 				this.setState({token: value});
-				this.getPrice();
+				this.getCompany();
 			} else {
 				null
 			}
@@ -50,9 +50,9 @@ export default class PriceList extends Component {
 		}
 	}
 
-	getPrice(){
-		let url = config.domain + '/api/price/';
-		let token = 'Token ' + this.state.token
+	getCompany(){
+		let url = config.domain + '/api/materials/';
+		let token = 'Token ' + this.state.token;
 		fetch(url, {
 			headers: {
 				'Authorization': token
@@ -60,12 +60,10 @@ export default class PriceList extends Component {
 		})
 		.then((response) => {
 			let data = JSON.parse(response._bodyText);
+			console.log('materials : ', data)
 			let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-			let array = _.map(data[0], (value, key)=>{
-				return {key: key, value: value}
-			})
 			this.setState({
-					price: ds.cloneWithRows(array),
+				materials: ds.cloneWithRows(data),
 			});
 		})
 	}
@@ -75,7 +73,7 @@ export default class PriceList extends Component {
 			<View>
 				<View style={styles.row}>
 					<Text style={styles.text}>
-						{rowData.key} - {rowData.value}
+						{rowData.name} - {rowData.width} - {rowData.price}
 					</Text>
 				</View>
 			</View>
@@ -83,12 +81,12 @@ export default class PriceList extends Component {
 	}
 
 	render(){
-		if (!this.state.price) {
+		if (!this.state.materials) {
 			return <Text>Loading...</Text>;
 		}
 		return (
 			<ListView
-				dataSource={this.state.price}
+				dataSource={this.state.materials}
 				renderRow={this._renderRow}
 				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		);

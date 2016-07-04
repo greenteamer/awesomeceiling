@@ -14,12 +14,12 @@ import {
 import {Actions} from 'react-native-router-flux'
 import ResponsiveImage from 'react-native-responsive-image';
 
-import ButtonRounded from '../components/widgets/ButtonRounded.js';
-import BTNBig from '../components/widgets/BTNBig.js';
-import styles from '../components/styles/style.js';
-import gradient from '../components/styles/gradient.js';
+import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
+import BTNBig from '@appComponents/widgets/BTNBig.js';
+import styles from '@appStyles/style.js';
+import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
-import config from '../config.js';
+import config from '@appRoot/config.js';
 
 var deviceWidth = Dimensions.get('window').width;
 
@@ -48,11 +48,12 @@ export default class Profile extends Component {
 		}).then((response) => console.log('Register logout response: ', response))
 	}
 
+
 	render(){
 		return(
 			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 120, marginBottom: 20}}>
-					<ResponsiveImage style={{alignSelf: 'center', borderRadius:46}} source={require('../components/img/gorodova.png')} initWidth="120" initHeight="120"/>
+					<ResponsiveImage style={{alignSelf: 'center', borderRadius:46}} source={require('@images/gorodova.png')} initWidth="120" initHeight="120"/>
 					<Text style={styles.h1Center}>
 						Профиль
 					</Text>

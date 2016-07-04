@@ -15,8 +15,8 @@ import {
 } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import Icon          from 'react-native-vector-icons/Ionicons';
-import BTN           from '../widgets/BTN.js';
-import common_styles from '../styles/style.js';
+import BTN           from '@appComponents/widgets/BTN.js';
+import common_styles from '@appStyles/style.js';
 import _             from 'lodash';
 
 export default class ContactForm extends Component {
