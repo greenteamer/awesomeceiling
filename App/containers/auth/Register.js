@@ -85,7 +85,7 @@ export default class Register extends Component {
 		return(
 			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 80, marginBottom: 20}}>
-					<Image style={{alignSelf: 'center'}} source={require('@images/icon.png')}/>
+					<Image style={{alignSelf: 'center'}} source={require('@appImages/icon.png')}/>
 					<Text style={styles.h1Center}>
 						Регистрация
 					</Text>
@@ -121,7 +121,12 @@ export default class Register extends Component {
 							placeholderTextColor={'#bcc5c9'} />
 					</View>
 					<BTNBig
-						onPress={()=> this.register()}
+						onPress={
+                ()=> {
+                  // this.register();
+                  Actions.MainTabBar();
+                }
+              }
 						text="Зарегистрироваться" />
 				</View>
 				<View style={{ marginTop: 20 }}>

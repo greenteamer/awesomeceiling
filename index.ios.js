@@ -4,29 +4,17 @@ import {
 } from 'react-native';
 
 import RootRouter from './App/RootRouter.js'
-// const Realm = require('realm');
+import { realm, Sequence } from '@appSchema';
 
 
 class AwesomeCeiling extends Component {
 	render() {
-		// let realm = new Realm({
-		// 	schema: [{name: 'Dog', properties: {name: 'string'}}]
-		// });
-		// realm.write(() => {
-		// 	let newDog = realm.create('Dog', {name: 'Rex'});
-		// 	newDog.name = 'Dog';
+		console.log('Sequences: ', realm.objects('Sequence'));
+		// realm.write( ()=> {
+		// 	realm.delete(realm.objects('User'));
 		// });
 
-		// let dogs = realm.objects('Dog');
-		// console.log(`****** Dog in Realm: ${dogs.length}`);
-
-		// realm.write( () => {
-		// 	let dogs = realm.objects('Dog');
-		// 	// realm.delete(dogs);
-		// });
-
-		// console.log(`last check ${dogs.length}`);
-
+		console.log('Users: ', realm.objects('User'));
 		return (
 			<RootRouter />
 		)

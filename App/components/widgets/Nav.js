@@ -38,11 +38,11 @@ export default class Nav extends Component {
 		)
 		return(
 			<NavigationBar
-					title={titleConfig}
-					leftButton={ this.props.onLeftButtonPress ? leftButton : undefined }
-					rightButton={ this.props.onRightButtonPress ? rightButton : undefined }
-					tintColor="#2c3239"
-					statusBar={{style:'light-content'}}/>
+				title={titleConfig}
+				leftButton={ this.props.onLeftButtonPress ? leftButton : undefined }
+				rightButton={ this.props.onRightButtonPress ? rightButton : undefined }
+				tintColor="#2c3239"
+				statusBar={{style:'light-content'}}/>
 		)
 	}
 }

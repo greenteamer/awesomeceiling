@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import style_button from '@appStyles/style.js';
 import _ from 'lodash';
 
+
 export default class PriceList extends Component {
 	statics: {
 		title: '<PriceList>',
@@ -27,32 +28,21 @@ export default class PriceList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			price: null,
-			token: ''
+			prices: null,
 		};
 	}
 
-	componentDidMount(){
-		this._loadInitialState().done();
-	}
-
-	async _loadInitialState() {
-		try {
-			var value = await AsyncStorage.getItem("token");
-			if (value !== null){
-				this.setState({token: value});
-				this.getPrice();
-			} else {
-				null
-			}
-		} catch (error) {
-			null
-		}
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			prices: nextProps.prices,
+		})
 	}
 
 	getPrice(){
 		let url = config.domain + '/api/price/';
-		let token = 'Token ' + this.state.token
+		let user = realm.objects('User')['0'];
+		console.log('**** settings prices user: ', user);
+		let token = 'Token ' + user.token;
 		fetch(url, {
 			headers: {
 				'Authorization': token
@@ -65,7 +55,7 @@ export default class PriceList extends Component {
 				return {key: key, value: value}
 			})
 			this.setState({
-					price: ds.cloneWithRows(array),
+					prices: ds.cloneWithRows(array),
 			});
 		})
 	}
@@ -83,12 +73,15 @@ export default class PriceList extends Component {
 	}
 
 	render(){
-		if (!this.state.price) {
+		const { prices } = this.state;
+		if (!prices) {
 			return <Text>Loading...</Text>;
 		}
+		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		console.log('**** PriceList prices: ', prices);
 		return (
 			<ListView
-				dataSource={this.state.price}
+				dataSource={ds.cloneWithRows(prices)}
 				renderRow={this._renderRow}
 				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		);

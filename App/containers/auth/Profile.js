@@ -11,7 +11,7 @@ import {
 	TouchableHighlight,
 	AsyncStorage
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
 import ResponsiveImage from 'react-native-responsive-image';
 
 import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
@@ -20,6 +20,7 @@ import styles from '@appStyles/style.js';
 import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
 import config from '@appRoot/config.js';
+import { checkUser } from '@appMethods';
 
 var deviceWidth = Dimensions.get('window').width;
 
@@ -33,7 +34,7 @@ export default class Profile extends Component {
 		}
 	}
 
-	logout(){
+	logout() {
 		console.log("Register logout action start")
 		let url = config.domain + '/rest-auth/logout/';
 		fetch(url, {
@@ -53,7 +54,7 @@ export default class Profile extends Component {
 		return(
 			<ScrollView style={{backgroundColor: '#ffffff'}}>
 				<View style={{marginTop: 120, marginBottom: 20}}>
-					<ResponsiveImage style={{alignSelf: 'center', borderRadius:46}} source={require('@images/gorodova.png')} initWidth="120" initHeight="120"/>
+					<ResponsiveImage style={{alignSelf: 'center', borderRadius:46}} source={require('@appImages/gorodova.png')} initWidth="120" initHeight="120"/>
 					<Text style={styles.h1Center}>
 						Профиль
 					</Text>

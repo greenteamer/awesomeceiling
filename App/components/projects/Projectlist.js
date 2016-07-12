@@ -12,24 +12,23 @@ import {Actions} from 'react-native-router-flux';
 
 export default class Projectlist extends Component {
 	render(){
-		// create project items list and render
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		let items = (this.props.projects) ? this.props.projects.items : null;
 		let dataSource =  ds.cloneWithRows(items);
 		return(
-				<ListView
-					style={styles.listView}
-					dataSource={dataSource}
-					renderRow={this._renderRow.bind(this)}
-					renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
+			<ListView
+				style={styles.listView}
+				dataSource={dataSource}
+				renderRow={this._renderRow.bind(this)}
+				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		)
 	}
 
 	_renderRow(rowData: string, sectionID: number, rowID: number) {
-		// console.log("Projectlist _renderRow this.onPressProject: ", this.onPressProject)
+
 		return (
 			<Project
-				onProjectPress={() => this.props.onProjectPress(rowData, rowID)}
+				onProjectPress={ () => Actions.projectDetail({project: rowData})}
 				project={rowData}
 				rowID={rowID}/>
 		);
@@ -37,22 +36,13 @@ export default class Projectlist extends Component {
 }
 
 
-// Projectlist.PropTypes = {
-// 	projects: PropTypes.shape({
-// 		items: PropTypes.arrayOf(PropTypes.shape({
-// 			name: PropTypes.string.isRequired
-// 		}).isRequired).isRequired
-// 	})
-// }
-
-
 var styles = StyleSheet.create({
 	listView: {
 		flex: 1,
-		marginTop: -20
+		// marginTop: -20
 	},
 	firstRow: {
-		marginTop: -20,
+		// marginTop: -20,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		padding: 10,

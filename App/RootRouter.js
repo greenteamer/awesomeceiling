@@ -32,49 +32,45 @@ import { connect } from 'react-redux';
 const RouterWithRedux = connect()(Router);
 import {store} from '@appStore/ceilingStore.js';
 
-// create store...
+
+// import {Router, Scene} from 'react-native-mobx';
 
 
-// const reducerCreate = params=>{
-// 	const defaultReducer = Reducer(params);
-// 	return (state, action)=>{
-// 		console.log("ACTION:", action);
-// 		return defaultReducer(state, action);
+// export default class RootRouter extends Component {
+// 	render() {
+// 		return (
+// 			<Provider store={store}>
+// 				<RouterWithRedux>
+// 					<Scene key="root" hideNavBar>
+// 						<Scene key="auth" direction="vertical" hideNavBar>
+// 							<Scene key="profile" component={Profile} title="Profile" />
+// 							<Scene key="login" component={Login} title="Login" />
+// 							<Scene key="register" component={Register} title="Register" />
+// 						</Scene>
+// 						<Scene key="MainTabBar" title="MainTabBar" component={MainTabBar} />
+// 						<Scene key="settings" component={Settings} title="Settings"/>
+// 						<Scene key="projects" component={Projects} title="Projects"/>
+// 						<Scene key="addProject" component={AddProject} direction="vertical" />
+// 						<Scene key="projectDetail" component={ProjectDetail} title="ProjectDetail" />
+// 					</Scene>
+// 				</RouterWithRedux>
+// 			</Provider>
+// 		)
 // 	}
-// };
+// }
 
 
 export default class RootRouter extends Component {
-	componentDidMount(){
-		this._loadInitialState().done();
-	}
-
-	async _loadInitialState() {
-		try {
-			var value = await AsyncStorage.getItem("token");
-			if (value !== null){
-				this.setState({token: value});
-				console.log('RootRouter Recovered selection from disk: ' + value);
-			} else {
-				// console.log('RootRouter Initialized with no selection on disk.');
-				Actions.auth();
-			}
-		} catch (error) {
-			console.log('RootRouter AsyncStorage error: ' + error.message);
-		}
-	}
-
 	render() {
 		return (
 			<Provider store={store}>
 				<RouterWithRedux>
 					<Scene key="root" hideNavBar>
-						<Scene key="MainTabBar" title="MainTabBar" component={MainTabBar} />
 						<Scene key="auth" direction="vertical" hideNavBar>
-							<Scene key="profile" component={Profile} title="Profile" />
 							<Scene key="login" component={Login} title="Login" />
 							<Scene key="register" component={Register} title="Register" />
 						</Scene>
+						<Scene key="MainTabBar" title="MainTabBar" component={MainTabBar} />
 						<Scene key="settings" component={Settings} title="Settings"/>
 						<Scene key="projects" component={Projects} title="Projects"/>
 						<Scene key="addProject" component={AddProject} direction="vertical" />
