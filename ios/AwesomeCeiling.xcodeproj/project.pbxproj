@@ -814,9 +814,9 @@
 				INFOPLIST_FILE = AwesomeCeiling/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
+				PRODUCT_BUNDLE_IDENTIFIER = net.ceiling.evilmonkey.ru;
 				PRODUCT_NAME = AwesomeCeiling;
-				PROVISIONING_PROFILE = "e3e9ccdd-88f1-4f7e-8d40-d8fdbef4b8f9";
+				PROVISIONING_PROFILE = "82713b2d-f953-4407-9db6-bd8797328f97";
 			};
 			name = Debug;
 		};
@@ -841,9 +841,9 @@
 				INFOPLIST_FILE = AwesomeCeiling/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
+				PRODUCT_BUNDLE_IDENTIFIER = net.ceiling.evilmonkey.ru;
 				PRODUCT_NAME = AwesomeCeiling;
-				PROVISIONING_PROFILE = "e3e9ccdd-88f1-4f7e-8d40-d8fdbef4b8f9";
+				PROVISIONING_PROFILE = "82713b2d-f953-4407-9db6-bd8797328f97";
 			};
 			name = Release;
 		};
