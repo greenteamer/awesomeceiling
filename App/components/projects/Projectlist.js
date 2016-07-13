@@ -12,8 +12,11 @@ import {Actions} from 'react-native-router-flux';
 
 export default class Projectlist extends Component {
 	render(){
+		if (this.props.projects.length === 0) {
+			return null;
+		}
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		let items = (this.props.projects) ? this.props.projects.items : null;
+		let items = (this.props.projects) ? this.props.projects : null;
 		let dataSource =  ds.cloneWithRows(items);
 		return(
 			<ListView

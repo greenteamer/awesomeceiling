@@ -15,28 +15,36 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
+import {observer} from 'mobx-react/native';
+import { toJS } from 'mobx';
+
 
 import style_button from '@appStyles/style.js';
 import ProjectForm from '@appComponents/projects/ProjectForm.js';
 import ProjectList from '@appComponents/projects/Projectlist.js';
-import Nav from '@appComponents/widgets/Nav.js';
 import {Actions} from 'react-native-router-flux';
+import Button from 'react-native-button';
 
-import { connect } from 'react-redux'
-import { addProjectAction } from '@actions';
 
 import NavigationBar from 'react-native-navbar';
 import { NavBarIconButton } from '@appLibs/CustomComponents/NavBar';
 
 
-class Projects extends Component {
+@observer
+export default class Projects extends Component {
 
-  onRightButtonPress(){
-    Actions.addProject()
+  addProject() {
+    const { ceilingStore } = this.props;
+    ceilingStore.addProject({ name: "testName" });
+    let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
+    Actions.addProject({project: newProject});
   }
 
   render(){
-    const { dispatch, projects } = this.props;
+    const { ceilingStore } = this.props;
+    const projects = toJS(ceilingStore.projects);
+    // console.log( '***** Projects.js render ceilingStore.projects.length: ', projects.length );
+    console.log( '***** Projects.js render ceilingStore.projects: ', projects );
     const leftButton = (
       <NavBarIconButton
         handlerFunc={Actions.settings}
@@ -46,7 +54,7 @@ class Projects extends Component {
     );
     const rightButton = (
       <NavBarIconButton
-        handlerFunc={this.onRightButtonPress}
+        handlerFunc={ this.addProject.bind(this) }
         iconName="ios-add"
         iconType="Ionicons"
       />
@@ -63,33 +71,12 @@ class Projects extends Component {
     return (
       <View style={{ flex: 1 }}>
         {NavBar}
-        <ProjectList
-          projects={projects}/>
+        <View>
+          <ProjectList
+            projects={ projects } />
+        </View>
       </View>
     );
   }
 
 }
-
-
-// Projects.PropTypes = {
-//  projects: PropTypes.shape({
-//    items: PropTypes.arrayOf(PropTypes.shape({
-//      name: PropTypes.string.isRequired
-//    }).isRequired).isRequired
-//  })
-// }
-
-
-// Какие именно props мы хотим получить из приходящего, как аргумент глобального состояния?
-// Обратите внимание: используйте https://github.com/faassen/reselect для лучшей производительности.
-function select(state) {
-  // console.log("Home select function state: ", state);
-  return {
-    projects: state.projects,
-    routes: state.routes
-  }
-}
-
-// Оборачиваем компонент `App` для внедрения в него функции `dispatch` и состояния
-export default connect(select)(Projects)
