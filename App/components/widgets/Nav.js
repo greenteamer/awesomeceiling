@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Nav extends Component {
 	render(){
-		console.log("Nav render this.props: ", this.props)
+		// console.log("Nav render this.props: ", this.props)
 		var titleConfig = {
 			title: this.props.title,
 			tintColor: '#fff'

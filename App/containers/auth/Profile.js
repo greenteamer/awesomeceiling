@@ -20,7 +20,7 @@ import styles from '@appStyles/style.js';
 import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
 import config from '@appRoot/config.js';
-import { checkUser } from '@appMethods';
+
 
 var deviceWidth = Dimensions.get('window').width;
 

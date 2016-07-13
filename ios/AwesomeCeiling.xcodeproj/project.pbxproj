@@ -14,6 +14,8 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* AwesomeCeilingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AwesomeCeilingTests.m */; };
 		098021111D29CBF900975087 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0922046A1CB8575D00EE5958 /* libRealmReact.a */; };
+		09C97B981D36A93500EA9B5B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C97B961D36A93400EA9B5B /* Fabric.framework */; };
+		09C97B991D36A93500EA9B5B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C97B971D36A93500EA9B5B /* Crashlytics.framework */; };
 		09DA75351CB7C1D3009CA81C /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DA75341CB7C18F009CA81C /* libBVLinearGradient.a */; };
 		0D42BADAE1E249359B9B20A9 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3656334629AD4C7196E49ADD /* Entypo.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
@@ -149,6 +151,8 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AwesomeCeilingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AwesomeCeilingTests.m; sourceTree = "<group>"; };
 		098021021D29CBCA00975087 /* libRealmNode.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libRealmNode.dylib; path = ../node_modules/realm/src/build/Debug/libRealmNode.dylib; sourceTree = "<group>"; };
+		09C97B961D36A93400EA9B5B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		09C97B971D36A93500EA9B5B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		09DA752F1CB7C18F009CA81C /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		0B9979DED080411491B9CB68 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		0F060170CF7E4F35B38CACF2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -192,10 +196,12 @@
 				098021111D29CBF900975087 /* libRealmReact.a in Frameworks */,
 				09DA75351CB7C1D3009CA81C /* libBVLinearGradient.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				09C97B981D36A93500EA9B5B /* Fabric.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				09C97B991D36A93500EA9B5B /* Crashlytics.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -391,6 +397,8 @@
 		BAAB847A66394EF18BA4C42E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09C97B961D36A93400EA9B5B /* Fabric.framework */,
+				09C97B971D36A93500EA9B5B /* Crashlytics.framework */,
 				098021021D29CBCA00975087 /* libRealmNode.dylib */,
 				BB96FEBF826B4E34B9398AD0 /* libc++.tbd */,
 				FD3849066FE44535AF466F13 /* libz.tbd */,
@@ -442,6 +450,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				09C97B951D36A8B400EA9B5B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -464,6 +473,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = M2RNX8WU6N;
 					};
 				};
 			};
@@ -676,6 +688,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		09C97B951D36A8B400EA9B5B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 23924bdeb1af1d6ac8604fbca683569cf7fe4d6f 79b084cea28480846374af36d7d03a1435b7c66af6e826fd6437ed54162f8f8c";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -770,7 +795,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -781,7 +812,9 @@
 				INFOPLIST_FILE = AwesomeCeiling/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
 				PRODUCT_NAME = AwesomeCeiling;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -789,6 +822,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -799,7 +838,9 @@
 				INFOPLIST_FILE = AwesomeCeiling/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
 				PRODUCT_NAME = AwesomeCeiling;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
