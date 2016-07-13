@@ -450,7 +450,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				09C97B951D36A8B400EA9B5B /* ShellScript */,
+				09C97B951D36A8B400EA9B5B /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -688,13 +688,14 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		09C97B951D36A8B400EA9B5B /* ShellScript */ = {
+		09C97B951D36A8B400EA9B5B /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -814,7 +815,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
 				PRODUCT_NAME = AwesomeCeiling;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e3e9ccdd-88f1-4f7e-8d40-d8fdbef4b8f9";
 			};
 			name = Debug;
 		};
@@ -840,7 +841,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = evilmonkey.ceiling;
 				PRODUCT_NAME = AwesomeCeiling;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e3e9ccdd-88f1-4f7e-8d40-d8fdbef4b8f9";
 			};
 			name = Release;
 		};
