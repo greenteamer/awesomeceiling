@@ -12,6 +12,21 @@ User.schema = {
   },
 }
 
+class Project {}
+Project.schema = {
+  name: 'Project',
+  primaryKey: '_id',
+  properties: {
+    _id     : "string",
+    name    : "string",
+    address : "string",
+    phone   : "string",
+    email   : "string",
+    text    : "string",
+  },
+}
+
+
 
 class Sequence {
   static save(schema, props) {
@@ -50,7 +65,7 @@ Sequence.schema = {
 }
 
 const realm = new Realm({
-  schema: [User, Sequence],
+  schema: [Sequence, User, Project],
   schemaVersion: SCHEMA_VERSION
 })
 

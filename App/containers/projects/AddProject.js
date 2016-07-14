@@ -22,6 +22,8 @@ import Nav from '@appComponents/widgets/Nav.js';
 import {Actions} from 'react-native-router-flux';
 import BTN from '@appComponents/widgets/BTN.js';
 
+import { toJS } from 'mobx';
+import { ProjectModel } from '@appModels';
 
 export default class AddProject extends Component {
   constructor(props) {
@@ -32,14 +34,29 @@ export default class AddProject extends Component {
       address : "",
       phone   : "",
       email   : "",
-      price   : "",
+      cost    : "",
       text    : "",
     }
   }
 
+  saveProject() {
+    const { ceilingStore } = this.props;
+    const { name, address, phone, email, cost, text } = this.state;
+
+    // console.log('***** AddProject.js ceilingStore to js: ', toJS(ceilingStore) );
+    // ceilingStore.addProject(this.state);
+    // let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
+
+    let newProject = new ProjectModel(this.state);
+    newProject.save();
+
+    Actions.pop();
+  }
+
   render(){
-    const { ceilingStore, project } = this.props;
-    // console.log('**** AddProject start render ceilingStore, project: ', project);
+    const { ceilingStore } = this.props;
+    const { name, address, phone, email, cost, text } = this.state;
+    // console.log('**** AddProject start render ceilingStore: ', ceilingStore);
     return (
       <View style={styles.container}>
         <Nav
@@ -52,37 +69,33 @@ export default class AddProject extends Component {
               style                = {styles.textInput}
               placeholder          = "Название проекта"
               placeholderTextColor = "#333"
-              onChangeText         = {(value) => project.setName(value)}
-              onEndEditing         = {(event) => this.setState({name: event.nativeEvent.text})}
-              value                = {project.toJS().name}
+              onChangeText         = {(value) => this.setState({ name: value })}
+              value                = {name}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Адрес"
               placeholderTextColor = "#333"
               onChangeText         = {(value) => this.setState({address: value})}
-              onEndEditing         = {(event) => this.setState({address: event.nativeEvent.text})}
-              value                = {this.state.address}
+              value                = {address}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Телефон"
               placeholderTextColor = "#333"
               onChangeText         = {(value) => this.setState({phone: value})}
-              onEndEditing         = {(event) => this.setState({phone: event.nativeEvent.text})}
-              value                = {this.state.phone}
+              value                = {phone}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Email"
               placeholderTextColor = "#333"
               onChangeText         = {(value) => this.setState({email: value})}
-              onEndEditing         = {(event) => this.setState({email: event.nativeEvent.text})}
-              value                = {this.state.email}
+              value                = {email}
             />
             <BTN
               style   = {styles.btnCenter}
-              onPress = {e => this.handleClick(e)}
+              onPress = {this.saveProject.bind(this)}
               text    = "Сохранить" />
           </View>
         </ScrollView>

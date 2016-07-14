@@ -1,48 +1,57 @@
 "use strict";
-import {action, reaction, observable, observe, computed, autorun} from 'mobx';
+import { action, reaction, observable, observe, computed, autorun, toJS } from 'mobx';
 import { Actions } from 'react-native-router-flux';
 import autobind from 'autobind-decorator';
 import singleton from 'singleton';
+import _ from 'underscore';
 
 import { ProjectModel } from '@appModels';
 import * as Utils from '@appUtils';
 
+import { realm } from '@appSchema';
+let initialProjects = realm.objects('Project');
+// console.log('**** test CeilingStore.js projects from realm: ', rlmProjects);
 
 @autobind
 class CeilingStore extends singleton {
-  @observable projects = [];
-  total = 0;
+  @observable projects;
+  @observable company;
 
   constructor(){
     super();
-    autorun( () => console.log("ceilingStore report: ", this.report) );
-    reaction( () => this.projects, () => this.total = this.projects.length );
+    this.projects = (initialProjects) ? _.values(initialProjects) : [];
+    this.company = {};
+    autorun( () => {
+      console.log("ceilingStore report: ", this.report);
+    });
   }
 
   @computed get report() {
-    if (this.projects.length === 0) {
-      return this.projects;
-    }
-    return this.toJS();
+    return toJS(this);
   }
 
-
-  @action addProject(obj){
-    // console.log('**** action add project obj: ', obj)
-    this.projects.push( new ProjectModel(this, Utils.uuid(), obj.name, false) );
-  }
   @action clearProjects() {
     this.projects = [];
+    let allProjects = realm.objects('Project');
+    realm.write(()=>{
+      realm.delete(allProjects);
+    });
   }
 
-  toJS() {
-    return this.projects.map( (project) => project.toJS());
-  }
-  static fromJS(array) {
-    const ceilingStore = new CeilingStore();
-    ceilingStore.projects = array.map( item => ProjectModel.fromJS(ceilingStore, item));
-    return ceilingStore;
-  }
+  // static fromJS(array) {
+  //   const ceilingStore = new CeilingStore();
+  //   ceilingStore.projects = array.map( item => ProjectModel.fromJS(ceilingStore, item));
+  //   return ceilingStore;
+  // }
+
+  // toJS() {
+  //   return this.projects.map( (project) => project.toJS());
+  // }
+
+  // @action addProject(obj){
+  //   // this.projects.push( new ProjectModel(this, Utils.uuid(), obj, false) );
+  //   this.projects.push( new ProjectModel(obj) );
+  // }
 
 }
 
