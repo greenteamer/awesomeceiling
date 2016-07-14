@@ -23,28 +23,28 @@ import style_button from '@appStyles/style.js';
 import ProjectForm from '@appComponents/projects/ProjectForm.js';
 import ProjectList from '@appComponents/projects/Projectlist.js';
 import {Actions} from 'react-native-router-flux';
-import Button from 'react-native-button';
 
 
 import NavigationBar from 'react-native-navbar';
 import { NavBarIconButton } from '@appLibs/CustomComponents/NavBar';
+
+import Button from 'react-native-button';
 
 
 @observer
 export default class Projects extends Component {
 
   addProject() {
-    const { ceilingStore } = this.props;
-    ceilingStore.addProject({ name: "testName" });
-    let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
-    Actions.addProject({project: newProject});
+    // const { ceilingStore } = this.props;
+    // ceilingStore.addProject({ name: "testName" });
+    // let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
+    // Actions.addProject({project: newProject});
+    Actions.addProject();
   }
 
   render(){
     const { ceilingStore } = this.props;
     const projects = toJS(ceilingStore.projects);
-    // console.log( '***** Projects.js render ceilingStore.projects.length: ', projects.length );
-    console.log( '***** Projects.js render ceilingStore.projects: ', projects );
     const leftButton = (
       <NavBarIconButton
         handlerFunc={Actions.settings}
@@ -68,13 +68,20 @@ export default class Projects extends Component {
         statusBar={{ style: 'light-content' }}
       />
     );
+    const clearButton = (
+      <Button
+        style={{fontSize: 20, color: 'green'}}
+        styleDisabled={{color: 'red'}}
+        onPress={() => ceilingStore.clearProjects()}>
+        Удалить все проекты
+      </Button>
+    )
     return (
-      <View style={{ flex: 1 }}>
+      <View>
         {NavBar}
-        <View>
-          <ProjectList
-            projects={ projects } />
-        </View>
+        <ProjectList
+          projects={ projects }
+          clearButton={ clearButton } />
       </View>
     );
   }

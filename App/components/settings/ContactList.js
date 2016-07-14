@@ -25,51 +25,15 @@ export default class ContactList extends Component {
     description: 'Performant, scrollable list of data.'
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      contacts: null,
-      token: '',
     };
   }
 
-  componentDidMount(){
-    this._loadInitialState().done();
-  }
-
-  async _loadInitialState() {
-    try {
-      var value = await AsyncStorage.getItem("token");
-      if (value !== null){
-        this.setState({token: value});
-        this.getCompany();
-      } else {
-        null
-      }
-    } catch (error) {
-      null
-    }
-  }
-
-  getCompany(){
-    let url = config.domain + '/api/company/';
-    let token = 'Token ' + this.state.token
-    fetch(url, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    .then((response) => {
-      let data = JSON.parse(response._bodyText);
-      this.setState({
-        contacts: data[0],
-      });
-    })
-  }
-
-
   render(){
-    if (!this.state.contacts) {
+    const { contacts } = this.props;
+    if (!contacts) {
       return <Text>Loading...</Text>;
     }
     return (
@@ -84,19 +48,19 @@ export default class ContactList extends Component {
           <View>
             <View style={styles.companyTextContainer}>
               <Text style={styles.comapnyLabel}>Название: </Text>
-              <Text style={styles.companyData}>{this.state.contacts.name}</Text>
+              <Text style={styles.companyData}>{contacts.name}</Text>
             </View>
             <View style={styles.companyTextContainer}>
               <Text style={styles.comapnyLabel}>Адрес: </Text>
-              <Text style={styles.companyData}>{this.state.contacts.address}</Text>
+              <Text style={styles.companyData}>{contacts.address}</Text>
             </View>
             <View style={styles.companyTextContainer}>
               <Text style={styles.comapnyLabel}>Телефон: </Text>
-              <Text style={styles.companyData}>{this.state.contacts.phone}</Text>
+              <Text style={styles.companyData}>{contacts.phone}</Text>
             </View>
             <View style={styles.companyTextContainer}>
               <Text style={styles.comapnyLabel}>email: </Text>
-              <Text style={styles.companyData}>{this.state.contacts.email}</Text>
+              <Text style={styles.companyData}>{contacts.email}</Text>
             </View>
           </View>
         </View>

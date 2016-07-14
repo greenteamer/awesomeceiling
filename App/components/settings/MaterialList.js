@@ -24,49 +24,19 @@ export default class ContactList extends Component {
 		description: 'Performant, scrollable list of data.'
 	}
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
-			materials: null,
-			token: ''
 		};
 	}
 
-	componentDidMount(){
-		this._loadInitialState().done();
-	}
-
-	async _loadInitialState() {
-		try {
-			var value = await AsyncStorage.getItem("token");
-			if (value !== null){
-				this.setState({token: value});
-				this.getCompany();
-			} else {
-				null
-			}
-		} catch (error) {
-			null
-		}
-	}
-
-	getCompany(){
-		let url = config.domain + '/api/materials/';
-		let token = 'Token ' + this.state.token;
-		fetch(url, {
-			headers: {
-				'Authorization': token
-			},
-		})
-		.then((response) => {
-			let data = JSON.parse(response._bodyText);
-			console.log('materials : ', data)
-			let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-			this.setState({
-				materials: ds.cloneWithRows(data),
-			});
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			materials: nextProps.materials,
 		})
 	}
+
+
 
 	_renderRow(rowData: string, sectionID: number, rowID: number) {
 		return (
@@ -81,12 +51,14 @@ export default class ContactList extends Component {
 	}
 
 	render(){
-		if (!this.state.materials) {
+		const { materials } = this.props;
+		if (!materials) {
 			return <Text>Loading...</Text>;
 		}
+		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		return (
 			<ListView
-				dataSource={this.state.materials}
+				dataSource={ds.cloneWithRows(materials)}
 				renderRow={this._renderRow}
 				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		);

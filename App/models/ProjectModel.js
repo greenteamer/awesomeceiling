@@ -1,35 +1,60 @@
 "use strict";
-import { observable, action } from 'mobx';
-
+import { observable, action, computed, toJS } from 'mobx';
+import * as Utils from '@appUtils';
+import { CeilingStore } from '@appStore';
+import { realm } from '@appSchema';
 
 export default class ProjectModel {
-  store;
-  id;
+  _id;
   @observable name;
-  @observable cost;
+  @observable address;
+  @observable phone;
+  @observable email;
+  @observable text;
 
-  constructor(store, id, name, cost) {
-    this.store = store;
-    this.id = id;
-    this.name = name;
+  @observable isSaving = false;
+
+
+  constructor(obj) {
+    this._id = Utils.uuid();
+    this.name = obj.name;
+    this.address = obj.address;
+    this.phone = obj.phone;
+    this.email = obj.email;
+    this.text = obj.text;
+    this.createdAt;
   }
 
-  @action destroy() {
-    this.store.projects.remove(this);
+  destroy() {
+    CeilingStore.projects.remove(this);
   }
+  save() {
+    let newProject = this;
+    newProject.createdAt = new Date();
+    CeilingStore.projects.unshift(newProject);
+    realm.write(()=>{
+      realm.create('Project', newProject, true);
+    });
+  }
+
   @action setName(name) {
     this.name = name;
   }
 
-  toJS() {
-    return {
-      id: this.id,
-      name: this.name,
-    };
-  }
+  // toJS() {
+  //   return {
+  //     _id: this._id,
+  //     name: this.name,
+  //     address: this.address,
+  //     phone: this.phone,
+  //     email: this.email,
+  //     text: this.text,
+  //     cost: this.cost,
+  //   }
+  // }
 
-  static fromJS(store, object) {
-    return new ProjectModel(store, object.id, object.name);
-  }
+  // static fromJS(store, object) {
+  //   return new ProjectModel(CeilingStore, object.id, object.name);
+  // }
 
 }

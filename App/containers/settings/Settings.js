@@ -13,15 +13,37 @@ import {
   StatusBar,
   TouchableHighlight
 } from 'react-native';
-import NavigationBar from 'react-native-navbar';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import style_button from '@appStyles/style.js';
 import PriceList from '@appComponents/settings/PriceList.js';
 import ContactList from '@appComponents/settings/ContactList.js';
 import MaterialList from '@appComponents/settings/MaterialList.js';
 
+import NavigationBar from 'react-native-navbar';
+import { NavBarIconButton } from '@appLibs/CustomComponents/NavBar';
+import {Actions} from 'react-native-router-flux';
+
 import { realm } from '@appSchema';
 import _ from 'underscore';
+
+
+const leftButton = (
+  <NavBarIconButton
+    handlerFunc={Actions.pop}
+    iconName="ios-arrow-back"
+    iconType="Ionicons"
+  />
+);
+const NavBar = (
+  <NavigationBar
+    title={{ title: "Проекты", tintColor: "#ffffff" }}
+    tintColor="#2c3239"
+    leftButton={leftButton}
+    statusBar={{ style: 'light-content' }}
+  />
+);
+
 
 export default class Settings extends Component {
   statics: {
@@ -35,11 +57,15 @@ export default class Settings extends Component {
       token: '',
       currentTab: 'price',
       prices: [],
+      materials: [],
+      contacts: null,
     };
   }
 
   componentDidMount() {
     this.getPrices();
+    this.getCompany();
+    this.getMaterials();
   }
 
   getPrices() {
@@ -82,6 +108,43 @@ export default class Settings extends Component {
     })
   }
 
+  getCompany(){
+    let url = config.domain + '/api/company/';
+    let user = realm.objects('User')['0'];
+    let token = 'Token ' + user.token
+    fetch(url, {
+      headers: {
+        'Authorization': token
+      },
+    })
+    .then((response) => {
+      let data = JSON.parse(response._bodyText);
+      console.log('***** response company: ', data);
+      this.setState({
+        contacts: data[0],
+      });
+    })
+  }
+
+  getMaterials(){
+    let url = config.domain + '/api/materials/';
+    let user = realm.objects('User')['0'];
+    let token = 'Token ' + user.token
+    fetch(url, {
+      headers: {
+        'Authorization': token
+      },
+    })
+    .then((response) => {
+      let data = JSON.parse(response._bodyText);
+      console.log('materials : ', data)
+      let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        materials: data,
+      });
+    })
+  }
+
   _setCurrentTab(currentTab){
     this.setState({
       currentTab: currentTab
@@ -89,7 +152,8 @@ export default class Settings extends Component {
   }
 
   _renderTab(){
-    const { prices, currentTab } = this.state;
+    const { prices, contacts, materials, currentTab } = this.state;
+    console.log('***** Settings contacts: ', contacts);
     if (!currentTab) {
       return <Text>Нет данных</Text>
     }
@@ -100,31 +164,24 @@ export default class Settings extends Component {
     }
     if (currentTab == 'contacts') {
       return (
-        <ContactList />
+        <ContactList contacts={contacts} />
       )
     }
 
     if (currentTab == 'materials') {
       return (
-        <MaterialList />
+        <MaterialList materials={materials} />
       )
     }
   }
 
   render(){
-    let titleConfig = {
-      title: 'Настройки',
-      tintColor: '#fff'
-    };
     if (!this.state.currentTab) {
     return <Text>Loading...</Text>;
   }
     return (
       <View>
-        <NavigationBar
-          title={titleConfig}
-          tintColor="#2c3239"
-          statusBar={{style:'light-content'}}/>
+        {NavBar}
         <View style={styles.topTabBar}>
           <TouchableHighlight
             onPress={()=> this._setCurrentTab('price')}

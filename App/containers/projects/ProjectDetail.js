@@ -58,7 +58,7 @@ export default class ListViewSimpleExample extends Component {
 
 	componentWillMount(){
 		this._pressData = {};
-		console.log("project detail componentWillMount props: ", this.props);
+		// console.log("project detail componentWillMount props: ", this.props);
 	}
 
 	render(){

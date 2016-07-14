@@ -15,6 +15,7 @@ class AwesomeCeiling extends Component {
 		// });
 
 		console.log('Users: ', realm.objects('User'));
+		console.log('Projects: ', realm.objects('Project'));
 		return (
 			<RootRouter />
 		)

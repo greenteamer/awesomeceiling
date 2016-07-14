@@ -28,37 +28,9 @@ export default class PriceList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			prices: null,
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			prices: nextProps.prices,
-		})
-	}
-
-	getPrice(){
-		let url = config.domain + '/api/price/';
-		let user = realm.objects('User')['0'];
-		console.log('**** settings prices user: ', user);
-		let token = 'Token ' + user.token;
-		fetch(url, {
-			headers: {
-				'Authorization': token
-			},
-		})
-		.then((response) => {
-			let data = JSON.parse(response._bodyText);
-			let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-			let array = _.map(data[0], (value, key)=>{
-				return {key: key, value: value}
-			})
-			this.setState({
-					prices: ds.cloneWithRows(array),
-			});
-		})
-	}
 
 	_renderRow(rowData: string, sectionID: number, rowID: number) {
 		return (
@@ -73,15 +45,15 @@ export default class PriceList extends Component {
 	}
 
 	render(){
-		const { prices } = this.state;
+		const { prices } = this.props;
 		if (!prices) {
 			return <Text>Loading...</Text>;
 		}
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		console.log('**** PriceList prices: ', prices);
 		return (
 			<ListView
 				dataSource={ds.cloneWithRows(prices)}
+				enableEmptySections={true}
 				renderRow={this._renderRow}
 				renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
 		);
