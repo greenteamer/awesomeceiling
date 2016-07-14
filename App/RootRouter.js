@@ -16,9 +16,7 @@ import Login           from '@appContainers/auth/Login.js';
 import Register        from '@appContainers/auth/Register.js';
 import Profile         from '@appContainers/auth/Profile.js';
 import MainTabBar      from '@appContainers/MainTabBar.js';
-import Projects 			 from '@appContainers/projects/Projects.js';
-import ProjectDetail   from '@appContainers/projects/ProjectDetail.js';
-import AddProject 		 from '@appContainers/projects/AddProject.js';
+import { Projects, ProjectDetail, AddProject, AddPlot } from '@appContainers/projects';
 import Settings        from '@appContainers/settings/Settings.js';
 
 import { CeilingStore, AuthStore } from '@appStore';
@@ -39,6 +37,7 @@ export default class RootRouter extends Component {
 					<Scene key="settings" component={Settings} title="Settings"/>
 					<Scene key="projects" component={Projects} title="Projects"/>
 					<Scene key="addProject" component={AddProject} direction="vertical" />
+					<Scene key="addPlot" component={AddPlot} />
 					<Scene key="projectDetail" component={ProjectDetail} title="ProjectDetail" />
 				</Scene>
 			</Router>

@@ -25,7 +25,7 @@ import BTN from '@appComponents/widgets/BTN.js';
 import { toJS } from 'mobx';
 import { ProjectModel } from '@appModels';
 
-export default class AddProject extends Component {
+export default class AddPlot extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,14 +43,14 @@ export default class AddProject extends Component {
     const { ceilingStore } = this.props;
     const { name, address, phone, email, cost, text } = this.state;
 
-    // console.log('***** AddProject.js ceilingStore to js: ', toJS(ceilingStore) );
+    console.log('***** AddProject.js ceilingStore to js: ', toJS(ceilingStore) );
     // ceilingStore.addProject(this.state);
     // let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
 
-    let newProject = new ProjectModel(this.state);
-    newProject.save();
+    // let newProject = new ProjectModel(this.state);
+    // newProject.save();
 
-    Actions.addPlot({});
+    // Actions.pop();
   }
 
   render(){
