@@ -17,6 +17,7 @@ import {
 
 import {observer} from 'mobx-react/native';
 import { toJS } from 'mobx';
+import { ProjectModel } from '@appModels';
 
 
 import style_button from '@appStyles/style.js';
@@ -39,7 +40,9 @@ export default class Projects extends Component {
     // ceilingStore.addProject({ name: "testName" });
     // let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
     // Actions.addProject({project: newProject});
-    Actions.addProject();
+    let newProject = new ProjectModel({});
+    newProject.save();
+    Actions.addProject({project: newProject});
   }
 
   render(){

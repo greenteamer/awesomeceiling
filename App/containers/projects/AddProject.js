@@ -40,21 +40,20 @@ export default class AddProject extends Component {
   }
 
   saveProject() {
-    const { ceilingStore } = this.props;
+    const { ceilingStore, project } = this.props;
     const { name, address, phone, email, cost, text } = this.state;
 
     // console.log('***** AddProject.js ceilingStore to js: ', toJS(ceilingStore) );
     // ceilingStore.addProject(this.state);
     // let newProject = ceilingStore.projects[ceilingStore.projects.length - 1];
 
-    let newProject = new ProjectModel(this.state);
-    newProject.save();
-
-    Actions.addPlot({});
+    project.save();
+    Actions.pop();
+    // Actions.addPlot({});
   }
 
   render(){
-    const { ceilingStore } = this.props;
+    const { ceilingStore, project } = this.props;
     const { name, address, phone, email, cost, text } = this.state;
     // console.log('**** AddProject start render ceilingStore: ', ceilingStore);
     return (
@@ -69,34 +68,34 @@ export default class AddProject extends Component {
               style                = {styles.textInput}
               placeholder          = "Название проекта"
               placeholderTextColor = "#333"
-              onChangeText         = {(value) => this.setState({ name: value })}
-              value                = {name}
+              onChangeText         = {(value) => project.name = value}
+              value                = {project.name}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Адрес"
               placeholderTextColor = "#333"
-              onChangeText         = {(value) => this.setState({address: value})}
-              value                = {address}
+              onChangeText         = {(value) => project.address = value}
+              value                = {project.address}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Телефон"
               placeholderTextColor = "#333"
-              onChangeText         = {(value) => this.setState({phone: value})}
-              value                = {phone}
+              onChangeText         = {(value) => project.phone = value}
+              value                = {project.phone}
             />
             <TextInput
               style                = {styles.textInput}
               placeholder          = "Email"
               placeholderTextColor = "#333"
-              onChangeText         = {(value) => this.setState({email: value})}
-              value                = {email}
+              onChangeText         = {(value) => project.email = value}
+              value                = {project.email}
             />
             <BTN
               style   = {styles.btnCenter}
               onPress = {this.saveProject.bind(this)}
-              text    = "Сохранить" />
+              text    = "Сохранить и добавить чертеж" />
           </View>
         </ScrollView>
       </View>

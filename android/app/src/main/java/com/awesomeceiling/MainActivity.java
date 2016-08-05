@@ -1,6 +1,9 @@
 package com.awesomeceiling;
 
 import com.facebook.react.ReactActivity;
+import com.AirMaps.AirPackage;
+import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
+import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.realm.react.RealmReactPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -38,6 +41,9 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new AirPackage(),
+            new ExtraDimensionsPackage(),
+            new CodePush(null, this, BuildConfig.DEBUG),
             new VectorIconsPackage(),
             new RealmReactPackage(),
             new LinearGradientPackage()

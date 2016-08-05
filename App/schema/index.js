@@ -17,12 +17,13 @@ Project.schema = {
   name: 'Project',
   primaryKey: '_id',
   properties: {
-    _id     : "string",
-    name    : "string",
-    address : "string",
-    phone   : "string",
-    email   : "string",
-    text    : "string",
+    _id       : "string",
+    name      : "string",
+    address   : "string",
+    phone     : "string",
+    email     : "string",
+    text      : "string",
+    updatedAt : "date",
   },
 }
 

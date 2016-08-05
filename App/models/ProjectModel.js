@@ -1,8 +1,10 @@
 "use strict";
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, autorun, reaction, computed, toJS } from 'mobx';
 import * as Utils from '@appUtils';
 import { CeilingStore } from '@appStore';
 import { realm } from '@appSchema';
+
+import _ from 'underscore';
 
 export default class ProjectModel {
   _id;
@@ -12,26 +14,37 @@ export default class ProjectModel {
   @observable email;
   @observable text;
 
-  @observable isSaving = false;
-
-
   constructor(obj) {
     this._id = Utils.uuid();
-    this.name = obj.name;
-    this.address = obj.address;
-    this.phone = obj.phone;
-    this.email = obj.email;
-    this.text = obj.text;
-    this.createdAt;
+    this.name = obj.name || "Новый проект";
+    this.address = obj.address || "";
+    this.phone = obj.phone || "";
+    this.email = obj.email || "";
+    this.text = obj.text || "";
+    this.updatedAt;
   }
+
+
+  @computed get changeProject() {
+    return this;
+  }
+
 
   destroy() {
     CeilingStore.projects.remove(this);
   }
   save() {
     let newProject = this;
-    newProject.createdAt = new Date();
-    CeilingStore.projects.unshift(newProject);
+    newProject.updatedAt = new Date();
+
+    // find objects with same _id in store
+    let storeProj = _.find( CeilingStore.projects, (proj) => {
+      return proj._id === this._id;
+    });
+    // unshift olny if it's new object
+    if (!storeProj) {
+      CeilingStore.projects.unshift(newProject);
+    }
     realm.write(()=>{
       realm.create('Project', newProject, true);
     });
