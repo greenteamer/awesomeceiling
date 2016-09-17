@@ -1,5 +1,6 @@
 "use strict";
-import { action, reaction, observable, observe, computed, autorun, toJS } from 'mobx';
+import { action, reaction, observable, observe, computed, autorun, when, toJS } from 'mobx';
+import { AlertIOS } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import autobind from 'autobind-decorator';
 import singleton from 'singleton';
@@ -18,9 +19,11 @@ import { firebase } from './firebaseStore.js'
 class Store extends singleton {
   @observable projects;
   @observable company;
+  @observable user;
 
   constructor(){
     super();
+    const self = this;
     this.projects = (initialProjects) ? _.values(initialProjects) : [];
     this.company = {};
     autorun( () => {

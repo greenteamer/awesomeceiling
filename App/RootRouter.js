@@ -27,18 +27,13 @@ import { firebase } from './stores/firebaseStore';
 export default class RootRouter extends Component {
 
   componentDidMount() {
+    // observe login state on firebase
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log('if user sign in');
-        AlertIOS.alert(
-         'Состояние авторизации изменено',
-         `${user.email}`,
-        );
+        store.user = user;
       } else {
-        AlertIOS.alert(
-         'Состояние авторизации изменено',
-         'Нет авторизированных пользователей',
-        );
+        store.user = null;
+        Actions.login();
       }
     });
   }

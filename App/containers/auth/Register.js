@@ -34,50 +34,32 @@ export default class Register extends Component {
     };
   }
 
-  async _onTokenChange(token) {
-    console.log("Register start _onTokenChange");
-    this.setState({
-      token: token
-    });
-    try {
-      await AsyncStorage.setItem("token", token);
-      console.log('Register Saved selection to disk: ' + token);
-    } catch (error) {
-      console.log('Register AsyncStorage error: ' + error.message);
-    }
-  }
-
   register(){
-    // console.log("login func start");
-    let url = config.domain + '/rest-auth/registration/';
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        email: this.state.email,
-        password1: this.state.password1,
-        password2: this.state.password2,
-      })
-    })
-      .then((response) => response.text())
-      .then((responseText) => {
-        console.log("Register registration response: ", responseText);
-        let token = JSON.parse(responseText).key;
-        this._onTokenChange(token);
-      })
-      // .then((responseText) => console.log("auth responce: ", responseText));
-
+    const { email, password1 } = this.state;
+    firebase.auth().createUserWithEmailAndPassword(email, password1)
+      .then(Actions.login)
+      .catch(error => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log('auth error: ', errorCode, errorMessage);
+      });
   }
 
   logout = () => {
     firebase.auth().signOut();
   }
 
+  validation = () => {
+    const { email, password1, password2 } = this.state;
+    if (password1 !== password2) return false;
+    if (password1.length <= 5) return false;
+    if (!validateEmail(email)) return false;
+    return true;
+  }
+
   render(){
+    const { store } = this.props;
     return(
       <ScrollView style={{backgroundColor: '#ffffff'}}>
         <View style={{marginTop: 80, marginBottom: 20}}>
@@ -91,12 +73,6 @@ export default class Register extends Component {
         </View>
         <View>
           <View style={styles.formGroup}>
-            <TextInput
-              style={styles.textInput}
-              placeholder={'имя пользователя'}
-              placeholderTextColor={'#bcc5c9'}
-              onChangeText={(value) => this.setState({username: value})}
-              value={this.state.value} />
             <TextInput
               style={styles.textInput}
               placeholder={'email'}
@@ -117,10 +93,12 @@ export default class Register extends Component {
               placeholderTextColor={'#bcc5c9'} />
           </View>
           <BTNBig
+            disabled={!this.validation()}
+            disabledText={{title: 'Данные введены некорректно', description: ''}}
             onPress={
                 ()=> {
-                  // this.register();
-                  Actions.MainTabBar();
+                  this.register();
+                  // Actions.MainTabBar();
                 }
               }
             text="Зарегистрироваться" />
@@ -135,19 +113,14 @@ export default class Register extends Component {
             </Text>
           </TouchableHighlight>
         </View>
-        <View style={{ marginTop: 20 }}>
-          <TouchableHighlight
-            underlayColor="transparent"
-            onPress={this.logout}>
-            <Text style={styles.textCenter}>
-              <Text style={{color: '#06bebd'}}> выйти</Text>
-            </Text>
-          </TouchableHighlight>
-        </View>
       </ScrollView>
     )
   }
+}
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }
 
 

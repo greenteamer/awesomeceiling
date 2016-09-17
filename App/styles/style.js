@@ -11,7 +11,7 @@ var secondary = require('./variable.js').brandSecondary;
 var colors = require('./variable.js');
 
 var deviceWidth = Dimensions.get('window').width;
-export default StyleSheet.create({
+export default {
 	container: {
 		flex: 1,
 		width: null,
@@ -111,6 +111,9 @@ export default StyleSheet.create({
 		width: deviceWidth-100,
 		height: 55
 	},
+	disabled: {
+		backgroundColor: '#99cecd',
+	},
 	btnCenter: {
 		backgroundColor: '#06bebd',
 		padding: 5,
@@ -174,4 +177,4 @@ export default StyleSheet.create({
 	link: {
 		color: '#06bebd',
 	}
-});
+};
