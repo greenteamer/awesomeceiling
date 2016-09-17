@@ -21,13 +21,7 @@ class CeilingStore extends singleton {
     super();
     this.projects = (initialProjects) ? _.values(initialProjects) : [];
     this.company = {};
-    autorun( () => {
-      console.log("ceilingStore report: ", this.report);
-    });
-  }
-
-  @computed get report() {
-    return toJS(this);
+    this.user = {};
   }
 
   @action clearProjects() {

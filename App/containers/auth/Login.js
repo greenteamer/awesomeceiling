@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  AlertIOS,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import NavigationBar from 'react-native-navbar';
@@ -20,7 +21,7 @@ import styles from '@appStyles/style.js';
 import gradient from '@appStyles/gradient.js';
 import LinearGradient from 'react-native-linear-gradient';
 import config from '@appRoot/config.js';
-
+import { firebase } from '../../stores/firebaseStore';
 
 
 import { realm , Sequence } from '@appSchema';
@@ -38,85 +39,40 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount(){
-    let userHash = realm.objects('User');
-    if (userHash['0']) {
-      Actions.projects();
-    };
-  }
-
-  async _onTokenChange(token) {
-    const { email } = this.state;
-    try {
-      let exstUser = realm.objects('User').filtered('email = $0', email);
-      let obj;
-      if (exstUser['0']) {
-        obj = Object.assign({ email: email, token: token }, { id: exstUser[0].id });
-      } else {
-        obj = {
-          email: email,
-          token: token,
-        };
-      };
-      let saved = Sequence.save('User', obj);
-    } catch (error) {
-      console.log('Realm error: ' + error.message);
-    }
-  }
-
-
   login(){
-    let url = config.domain + '/rest-auth/login/';
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-      })
-    })
-      .then((response) => response.text())
-      .then((responseText) => {
-        let token = JSON.parse(responseText).key;
-        this._onTokenChange(token);
-        Actions.projects()
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      // .then(function(result) {
+      //   result.getToken(true).then(function(idToken) {})
+      //     .catch(function(error) {
+      //       AlertIOS.alert(
+      //        'Ошибка авторизации',
+      //        'Невозможно получить token',
+      //       );
+      //     });
+      // })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        AlertIOS.alert(
+         'Ошибка авторизации',
+          errorMessage,
+        );
       });
   }
-
-  // logout(){
-  //   console.log("Login logout action start")
-  //   let url = config.domain + '/rest-auth/logout/';
-  //   fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       token: 'Token ff56aed5307733817a0c47034fe2b223f38f5057',
-  //     })
-  //   }).then((response) => console.log('logout response: ', response))
-  // }
-
-  // getProjects(){
-  //   console.log("Login get projects func start")
-  //   let url = config.domain + '/api/projects/';
-  //   fetch(url, {
-  //     headers: {
-  //       'Authorization': 'Token ff56aed5307733817a0c47034fe2b223f38f5057'
-  //     },
-  //   }).then((responce) => console.log(responce))
-  // }
+  
+  validation = () => {
+    const { email, password } = this.state;
+    if (password.length <= 5) return false;
+    if (!validateEmail(email)) return false;
+    return true;
+  }
 
   render(){
+    const {store} = this.props;
+    console.log('store user: ', store.user);
     return(
       <View style={{ flex: 1 }}>
-        {
-          // <NavigationBar rightButton={<RightButton/>} />
-        }
         <ScrollView style={{backgroundColor: '#ffffff'}}>
           <View style={{marginTop: 80, marginBottom: 20}}>
             <Image style={{alignSelf: 'center'}} source={require('@appImages/icon.png')}/>
@@ -142,26 +98,25 @@ export default class Login extends Component {
                 onChangeText={(value) => this.setState({password: value})}/>
             </View>
             <BTNBig
+              disabled={!this.validation()}
+              disabledText={{title: 'Данные введены некорректно', description: ''}}
               onPress={ ()=> this.login() }
               text="Войти" />
           </View>
-
-          {
-            // <View style={{ marginTop: 20 }}>
-            //   <TouchableHighlight
-            //     underlayColor="transparent"
-            //     onPress={()=>Actions.register()}>
-            //     <Text style={styles.textCenter}>
-            //       Еще нет аккаунта?
-            //       <Text style={{color: '#06bebd'}}> Зарегистрироваться</Text>
-            //     </Text>
-            //   </TouchableHighlight>
-            // </View>
-          }
-
+          <View style={{ marginTop: 20 }}>
+            <TouchableHighlight
+              underlayColor="transparent"
+              onPress={()=>Actions.register()}>
+              <Text style={styles.textCenter}>Еще нет аккаунта?<Text style={{color: '#06bebd'}}> Зарегистрироваться</Text></Text>
+            </TouchableHighlight>
+          </View>
         </ScrollView>
       </View>
     )
   }
 }
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
