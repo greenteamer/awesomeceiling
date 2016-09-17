@@ -9,11 +9,13 @@ import { ProjectModel } from '@appModels';
 import * as Utils from '@appUtils';
 
 import { realm } from '@appSchema';
-let initialProjects = realm.objects('Project');
-// console.log('**** test CeilingStore.js projects from realm: ', rlmProjects);
+const initialProjects = realm.objects('Project');
+
+import { firebase } from './firebaseStore.js'
+
 
 @autobind
-class CeilingStore extends singleton {
+class Store extends singleton {
   @observable projects;
   @observable company;
 
@@ -21,7 +23,13 @@ class CeilingStore extends singleton {
     super();
     this.projects = (initialProjects) ? _.values(initialProjects) : [];
     this.company = {};
-    this.user = {};
+    autorun( () => {
+      console.log("ceilingStore report: ", this.report);
+    });
+  }
+
+  @computed get report() {
+    return toJS(this);
   }
 
   @action clearProjects() {
@@ -31,22 +39,6 @@ class CeilingStore extends singleton {
       realm.delete(allProjects);
     });
   }
-
-  // static fromJS(array) {
-  //   const ceilingStore = new CeilingStore();
-  //   ceilingStore.projects = array.map( item => ProjectModel.fromJS(ceilingStore, item));
-  //   return ceilingStore;
-  // }
-
-  // toJS() {
-  //   return this.projects.map( (project) => project.toJS());
-  // }
-
-  // @action addProject(obj){
-  //   // this.projects.push( new ProjectModel(this, Utils.uuid(), obj, false) );
-  //   this.projects.push( new ProjectModel(obj) );
-  // }
-
 }
 
-export default CeilingStore.get();
+export default Store.get();

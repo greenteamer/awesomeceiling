@@ -171,4 +171,7 @@ export default StyleSheet.create({
 		paddingLeft: 10,
 		marginBottom: 12
 	},
+	link: {
+		color: '#06bebd',
+	}
 });
