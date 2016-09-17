@@ -10,17 +10,17 @@ import { realm, Sequence } from '@appSchema';
 
 import Backendless from 'backendless';
 
-var APPLICATION_ID = 'C7C5BC2D-3480-108E-FF1B-1ADD4DEDF900',
-    SECRET_KEY = '56B00A81-C343-0BAC-FF56-629206CE3500',
-    VERSION = 'v1'; //default application version;
+var APPLICATION_ID = '548CAC57-3A1A-8188-FF10-75E28B641A00',
+  SECRET_KEY = '95EC9871-2FA0-ADBB-FFB6-B2B7A509CB00',
+  VERSION = 'v1'; //default application version;
 Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
 
 function result(data) {
-    console.log("result data: ", data);
+  console.log("result data: ", data);
 }
 function gotError(err) {
-    console.log("error message - " + err.message);
-    console.log("error code - " + err.statusCode);
+  console.log("error message - " + err.message);
+  console.log("error code - " + err.statusCode);
 }
 
 class Product {
@@ -44,13 +44,13 @@ Backendless.Persistence.of( Product )
 
 class AwesomeCeiling extends Component {
 	render() {
-		console.log('Sequences: ', realm.objects('Sequence'));
+		// console.log('Sequences: ', realm.objects('Sequence'));
 		// realm.write( ()=> {
 		// 	realm.delete(realm.objects('User'));
 		// });
 
-		console.log('Users: ', realm.objects('User'));
-		console.log('Projects: ', realm.objects('Project'));
+		// console.log('Users: ', realm.objects('User'));
+		// console.log('Projects: ', realm.objects('Project'));
 		return (
 			<RootRouter />
 		)
