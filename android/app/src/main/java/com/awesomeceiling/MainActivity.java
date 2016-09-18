@@ -1,6 +1,11 @@
 package com.awesomeceiling;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.AirMaps.AirPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
+import com.microsoft.codepush.react.CodePush;
 
 public class MainActivity extends ReactActivity {
 

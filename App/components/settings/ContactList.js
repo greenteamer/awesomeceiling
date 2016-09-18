@@ -33,9 +33,7 @@ export default class ContactList extends Component {
 
   render(){
     const { contacts } = this.props;
-    if (!contacts) {
-      return <Text>Loading...</Text>;
-    }
+    if (!contacts) return <Text>Loading...</Text>;
     return (
       <ScrollView>
         <View style={styles.view}>

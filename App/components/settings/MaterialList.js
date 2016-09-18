@@ -30,20 +30,24 @@ export default class ContactList extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			materials: nextProps.materials,
-		})
-	}
+	// componentWillReceiveProps(nextProps) {
+	// 	this.setState({
+	// 		materials: nextProps.materials,
+	// 	})
+	// }
 
 
 
-	_renderRow(rowData: string, sectionID: number, rowID: number) {
+	_renderRow = (rowData: string, sectionID: number, rowID: number) => {
+    const { materialTypes } = this.props;
+    console.log('materials rowData: ', rowData);
+    if (!rowData) return null;
+    const type = materialTypes['type' + rowData.typeId];
 		return (
 			<View>
 				<View style={styles.row}>
 					<Text style={styles.text}>
-						{rowData.name} - {rowData.width} - {rowData.price}
+            {rowID}: {type.name} - {rowData.width} - {rowData.price}
 					</Text>
 				</View>
 			</View>
@@ -51,10 +55,11 @@ export default class ContactList extends Component {
 	}
 
 	render(){
-		const { materials } = this.props;
-		if (!materials) {
-			return <Text>Loading...</Text>;
-		}
+		const { materials, materialTypes } = this.props;
+		console.log('---- Settings materials: ', materials);
+    console.log('---- Settings materialTypes: ', materialTypes);
+		if (!materials) return <Text>Loading...</Text>;
+
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		return (
 			<ListView
@@ -102,7 +107,6 @@ var styles = StyleSheet.create({
 	topTabBarText: {
 		flex: 0.33,
 		textAlign:'center',
-		color: "#fff",
 		padding: 10,
 		fontSize: 12,
 		color: '#b3bdc2'

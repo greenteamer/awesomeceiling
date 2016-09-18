@@ -29,7 +29,11 @@ export default class RootRouter extends Component {
     // observe login state on firebase
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        store.user = user;
+        store.user = {email: user.email};
+        AlertIOS.alert(
+         'авторизациия',
+         'Гуд ok НОРМ ваще',
+        );
       } else {
         store.user = null;
         Actions.login();

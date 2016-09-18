@@ -32,8 +32,8 @@ class Home extends Component {
 	}
 
 	render(){
-		console.log("Home render this.props: ", this.props)
-		const { dispatch, projects } = this.props
+		console.log("Home render this.props: ", this.props);
+		const { dispatch, projects } = this.props;
 		var titleConfig = {
 			title: 'Home page',
 			tintColor: '#fff'
@@ -48,7 +48,7 @@ class Home extends Component {
 					size={25}
 					color="#06bebd"/>
 			</TouchableHighlight>
-		)
+		);
 		return (
 			<View style={styles.container}>
 				<NavigationBar
@@ -68,7 +68,6 @@ class Home extends Component {
 	}
 
 	onProjectPress(project, rowID){
-		console.log("Home onProjectPress start")
 		Actions.projectDetail({project: project})
 	}
 }
@@ -89,7 +88,7 @@ function select(state) {
 	// console.log("Home select function state: ", state);
   return {
     projects: state.projects,
-    routes: state.routes
+    routes: state.routes,
   }
 }
 

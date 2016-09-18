@@ -97,10 +97,9 @@ var styles = StyleSheet.create({
 	topTabBarText: {
 		flex: 0.33,
 		textAlign:'center',
-		color: "#fff",
 		padding: 10,
 		fontSize: 12,
-		color: '#b3bdc2'
+		color: '#b3bdc2',
 	},
 	topTabBarTextSelected: {
 		color: '#06bebd'

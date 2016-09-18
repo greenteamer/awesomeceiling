@@ -1,5 +1,5 @@
 "use strict";
-import { action, reaction, observable, observe, computed, autorun, when, toJS } from 'mobx';
+import { action, reaction, observable, observe, computed, autorun, when, toJS, map } from 'mobx';
 import { AlertIOS } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import autobind from 'autobind-decorator';
@@ -9,27 +9,47 @@ import _ from 'underscore';
 import { ProjectModel } from '@appModels';
 // import { realm } from '@appSchema';
 // const initialProjects = realm.objects('Project');
-import { firebase } from './firebaseStore.js'
+import { firebase, fb } from './firebaseStore.js'
 
 
-@autobind
 class Store extends singleton {
   @observable projects;
   @observable company;
   @observable user;
+  @observable prices;
+  @observable contacts;
+  @observable materials;
+  @observable materialTypes;
 
   constructor(){
     super();
     this.projects = [];
     this.company = {};
+    this.prices = [];
+    this.contacts = {};
+    // firebase db initial data:
+    this.fetchData('materials');
+    this.fetchData('materialTypes');
+    // fb.materials.on( 'value', snapshot => this.materials.replace(snapshot.val()) );
+    // fb.materialTypes.on( 'value', snapshot => this.materialTypes.replace(snapshot.val()) );
+
     autorun( () => {
-      console.log("ceilingStore report: ", this.report);
+      console.log("****** STORE REPORT: ", this);
     });
   }
 
-  @computed get report() {
-    return toJS(this);
+  @action fetchData(tableName) {
+    const response = fb[tableName]
+      .once('value')
+        .then(snapshot => {
+          // console.log('test fetch data: ', snapshot.val());
+          this[tableName] = snapshot.val();
+        });
   }
+
+  // @computed get report() {
+  //   return toJS(this);
+  // }
 
   @action clearProjects() {
     this.projects = [];
@@ -41,3 +61,4 @@ class Store extends singleton {
 }
 
 export default Store.get();
+

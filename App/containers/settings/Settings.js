@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import {
   ListView,
@@ -20,6 +19,7 @@ import NavigationBar from 'react-native-navbar';
 import { NavBarIconButton } from '@appLibs/CustomComponents/NavBar';
 import {Actions} from 'react-native-router-flux';
 import _ from 'underscore';
+import { toJS } from 'mobx';
 
 
 const leftButton = (
@@ -57,86 +57,87 @@ export default class extends Component {
   }
 
   componentDidMount() {
+    console.log('Settings store: ', this.props.store);
     this.getPrices();
     this.getCompany();
     this.getMaterials();
   }
 
   getPrices() {
-    let url = config.domain + '/api/price/';
-    let user = realm.objects('User')['0'];
-    let token = 'Token ' + user.token;
-    fetch(url, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    .then((response) => {
-      let data = JSON.parse(response._bodyText);
-      let array = _.map(_.pairs(data[0]), (arr)=>{
-        return {key: arr[0], value: arr[1]}
-      })
-      this.setState({
-          prices: array,
-      });
-    })
+    // let url = config.domain + '/api/price/';
+    // let user = realm.objects('User')['0'];
+    // let token = 'Token ' + user.token;
+    // fetch(url, {
+    //   headers: {
+    //     'Authorization': token
+    //   },
+    // })
+    // .then((response) => {
+    //   let data = JSON.parse(response._bodyText);
+    //   let array = _.map(_.pairs(data[0]), (arr)=>{
+    //     return {key: arr[0], value: arr[1]}
+    //   })
+    //   this.setState({
+    //       prices: array,
+    //   });
+    // })
   }
 
   getContacts() {
-    let url = config.domain + '/api/price/';
-    let user = realm.objects('User')['0'];
-    let token = 'Token ' + user.token;
-    fetch(url, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    .then((response) => {
-      let data = JSON.parse(response._bodyText);
-      let array = _.map(_.pairs(data[0]), (arr)=>{
-        return {key: arr[0], value: arr[1]}
-      })
-      this.setState({
-          prices: array,
-      });
-    })
+    // let url = config.domain + '/api/price/';
+    // let user = realm.objects('User')['0'];
+    // let token = 'Token ' + user.token;
+    // fetch(url, {
+    //   headers: {
+    //     'Authorization': token
+    //   },
+    // })
+    // .then((response) => {
+    //   let data = JSON.parse(response._bodyText);
+    //   let array = _.map(_.pairs(data[0]), (arr)=>{
+    //     return {key: arr[0], value: arr[1]}
+    //   })
+    //   this.setState({
+    //       prices: array,
+    //   });
+    // })
   }
 
   getCompany(){
-    let url = config.domain + '/api/company/';
-    let user = realm.objects('User')['0'];
-    let token = 'Token ' + user.token
-    fetch(url, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    .then((response) => {
-      let data = JSON.parse(response._bodyText);
-      console.log('***** response company: ', data);
-      this.setState({
-        contacts: data[0],
-      });
-    })
+    // let url = config.domain + '/api/company/';
+    // let user = realm.objects('User')['0'];
+    // let token = 'Token ' + user.token
+    // fetch(url, {
+    //   headers: {
+    //     'Authorization': token
+    //   },
+    // })
+    // .then((response) => {
+    //   let data = JSON.parse(response._bodyText);
+    //   console.log('***** response company: ', data);
+    //   this.setState({
+    //     contacts: data[0],
+    //   });
+    // })
   }
 
   getMaterials(){
-    let url = config.domain + '/api/materials/';
-    let user = realm.objects('User')['0'];
-    let token = 'Token ' + user.token
-    fetch(url, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    .then((response) => {
-      let data = JSON.parse(response._bodyText);
-      console.log('materials : ', data)
-      let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.setState({
-        materials: data,
-      });
-    })
+    // let url = config.domain + '/api/materials/';
+    // let user = realm.objects('User')['0'];
+    // let token = 'Token ' + user.token
+    // fetch(url, {
+    //   headers: {
+    //     'Authorization': token
+    //   },
+    // })
+    // .then((response) => {
+    //   let data = JSON.parse(response._bodyText);
+    //   console.log('materials : ', data)
+    //   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    //   this.setState({
+    //     materials: data,
+    //   });
+    // })
   }
 
   _setCurrentTab(currentTab){
@@ -146,8 +147,10 @@ export default class extends Component {
   }
 
   _renderTab(){
-    const { prices, contacts, materials, currentTab } = this.state;
-    console.log('***** Settings contacts: ', contacts);
+    const { currentTab } = this.state;
+    const { prices, contacts, materials, materialTypes } = this.props.store;
+    const storeJSON = toJS(this.props.store);
+    console.log('---- _renderTab storeJSON: ', storeJSON);
     if (!currentTab) {
       return <Text>Нет данных</Text>
     }
@@ -164,7 +167,7 @@ export default class extends Component {
 
     if (currentTab == 'materials') {
       return (
-        <MaterialList materials={materials} />
+        <MaterialList materials={materials} materialTypes={materialTypes}/>
       )
     }
   }
@@ -174,7 +177,7 @@ export default class extends Component {
     return <Text>Loading...</Text>;
   }
     return (
-      <View>
+      <View style={styles.flex}>
         {NavBar}
         <View style={styles.topTabBar}>
           <TouchableHighlight
@@ -199,7 +202,9 @@ export default class extends Component {
               Материалы</Text>
           </TouchableHighlight>
         </View>
-        {this._renderTab()}
+        <View style={styles.content}>
+          {this._renderTab()}
+        </View>
       </View>
     );
   }
@@ -207,10 +212,14 @@ export default class extends Component {
 
 
 var styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   topTabBar: {
     backgroundColor: "#191f28",
-    flex: 1,
+    // flex: 1,
     flexDirection:'row',
+    // height: 50,
   },
   topTabBarItem: {
     flex: 0.33,
@@ -228,5 +237,8 @@ var styles = StyleSheet.create({
     textAlign:'center',
     padding: 10,
     fontSize: 12
-  }
+  },
+  content: {
+    flex: 1,
+  },
 });

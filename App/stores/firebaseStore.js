@@ -9,9 +9,21 @@ const config = {
 
 firebase.initializeApp(config);
 
-// const root = firebase.database().ref();
-// const projects = firebase.database().ref('projects');
+const root = firebase.database().ref();
+const materialTypes = firebase.database().ref('materialTypes');
+const prices = firebase.database().ref('prices');
+const materials = firebase.database().ref('materials');
 // const users = firebase.database().ref('users');
 // const user = firebase.auth().currentUser;
 
-export { firebase };
+const fb = {
+  root,
+  prices,
+  materials,
+  materialTypes,
+};
+
+export {
+  firebase,
+  fb,
+};

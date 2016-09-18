@@ -48,7 +48,7 @@ export default class extends Component {
         );
       });
   }
-  
+
   validation = () => {
     const { email, password } = this.state;
     if (password.length <= 5) return false;
@@ -58,11 +58,13 @@ export default class extends Component {
 
   render(){
     const {store} = this.props;
-    console.log('store user: ', store.user);
+    console.log('***** store user: ', store.user);
+    console.log('***** store get materials: ', store.materials);
     return(
       <View style={{ flex: 1 }}>
         <ScrollView style={{backgroundColor: '#ffffff'}}>
           <View style={{marginTop: 80, marginBottom: 20}}>
+
             <Image style={{alignSelf: 'center'}} source={require('@appImages/icon.png')}/>
             <Text style={styles.h1Center}>
               Авторизация
@@ -97,6 +99,16 @@ export default class extends Component {
               onPress={()=>Actions.register()}>
               <Text style={styles.textCenter}>Еще нет аккаунта?<Text style={{color: '#06bebd'}}> Зарегистрироваться</Text></Text>
             </TouchableHighlight>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <TouchableHighlight
+              underlayColor="transparent"
+              onPress={()=>Actions.settings()}>
+              <Text style={styles.textCenter}><Text style={{color: '#06bebd'}}> Настройки</Text></Text>
+            </TouchableHighlight>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            {console.log('Login render store.materials: ', store.materials)}
           </View>
         </ScrollView>
       </View>
