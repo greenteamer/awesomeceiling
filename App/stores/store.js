@@ -7,11 +7,8 @@ import singleton from 'singleton';
 import _ from 'underscore';
 
 import { ProjectModel } from '@appModels';
-import * as Utils from '@appUtils';
-
-import { realm } from '@appSchema';
-const initialProjects = realm.objects('Project');
-
+// import { realm } from '@appSchema';
+// const initialProjects = realm.objects('Project');
 import { firebase } from './firebaseStore.js'
 
 
@@ -23,8 +20,7 @@ class Store extends singleton {
 
   constructor(){
     super();
-    const self = this;
-    this.projects = (initialProjects) ? _.values(initialProjects) : [];
+    this.projects = [];
     this.company = {};
     autorun( () => {
       console.log("ceilingStore report: ", this.report);
@@ -37,10 +33,10 @@ class Store extends singleton {
 
   @action clearProjects() {
     this.projects = [];
-    let allProjects = realm.objects('Project');
-    realm.write(()=>{
-      realm.delete(allProjects);
-    });
+    // let allProjects = realm.objects('Project');
+    // realm.write(()=>{
+    //   realm.delete(allProjects);
+    // });
   }
 }
 

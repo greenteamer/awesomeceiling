@@ -15,7 +15,6 @@ import { Router, Scene } from 'react-native-mobx';
 
 import Login           from '@appContainers/auth/Login.js';
 import Register        from '@appContainers/auth/Register.js';
-import Profile         from '@appContainers/auth/Profile.js';
 import MainTabBar      from '@appContainers/MainTabBar.js';
 import { Projects, ProjectDetail, AddProject, AddPlot } from '@appContainers/projects';
 import Settings        from '@appContainers/settings/Settings.js';

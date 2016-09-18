@@ -13,18 +13,12 @@ import {
   StatusBar,
   TouchableHighlight
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/Ionicons';
-import style_button from '@appStyles/style.js';
 import PriceList from '@appComponents/settings/PriceList.js';
 import ContactList from '@appComponents/settings/ContactList.js';
 import MaterialList from '@appComponents/settings/MaterialList.js';
-
 import NavigationBar from 'react-native-navbar';
 import { NavBarIconButton } from '@appLibs/CustomComponents/NavBar';
 import {Actions} from 'react-native-router-flux';
-
-import { realm } from '@appSchema';
 import _ from 'underscore';
 
 
@@ -45,7 +39,7 @@ const NavBar = (
 );
 
 
-export default class Settings extends Component {
+export default class extends Component {
   statics: {
     title: '<SettingsView>',
     description: 'Performant, scrollable list of data.'

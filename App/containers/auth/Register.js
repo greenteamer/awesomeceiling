@@ -11,18 +11,12 @@ import {
   AsyncStorage
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
-
-import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
 import BTNBig from '@appComponents/widgets/BTNBig.js';
 import styles from '@appStyles/style.js';
-import gradient from '@appStyles/gradient.js';
-import LinearGradient from 'react-native-linear-gradient';
-import config from '@appRoot/config.js';
 import { firebase } from '../../stores/firebaseStore';
 
-var deviceWidth = Dimensions.get('window').width;
 
-export default class Register extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,10 +40,6 @@ export default class Register extends Component {
       });
   }
 
-  logout = () => {
-    firebase.auth().signOut();
-  }
-
   validation = () => {
     const { email, password1, password2 } = this.state;
     if (password1 !== password2) return false;
@@ -59,7 +49,6 @@ export default class Register extends Component {
   }
 
   render(){
-    const { store } = this.props;
     return(
       <ScrollView style={{backgroundColor: '#ffffff'}}>
         <View style={{marginTop: 80, marginBottom: 20}}>

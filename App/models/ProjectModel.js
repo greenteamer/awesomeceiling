@@ -1,8 +1,8 @@
 "use strict";
 import { observable, action, autorun, reaction, computed, toJS } from 'mobx';
-import * as Utils from '@appUtils';
+// import * as Utils from '@appUtils';
 import { CeilingStore } from '@appStore';
-import { realm } from '@appSchema';
+// import { realm } from '@appSchema';
 
 import _ from 'underscore';
 
@@ -15,7 +15,7 @@ export default class ProjectModel {
   @observable text;
 
   constructor(obj) {
-    this._id = Utils.uuid();
+    // this._id = Utils.uuid();
     this.name = obj.name || "Новый проект";
     this.address = obj.address || "";
     this.phone = obj.phone || "";

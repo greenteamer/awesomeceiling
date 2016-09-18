@@ -12,24 +12,12 @@ import {
   AlertIOS,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
-import NavigationBar from 'react-native-navbar';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
 import BTNBig from '@appComponents/widgets/BTNBig.js';
 import styles from '@appStyles/style.js';
-import gradient from '@appStyles/gradient.js';
-import LinearGradient from 'react-native-linear-gradient';
-import config from '@appRoot/config.js';
 import { firebase } from '../../stores/firebaseStore';
 
 
-import { realm , Sequence } from '@appSchema';
-
-var deviceWidth = Dimensions.get('window').width;
-
-
-export default class Login extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {

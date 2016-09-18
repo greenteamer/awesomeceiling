@@ -13,18 +13,10 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import ResponsiveImage from 'react-native-responsive-image';
-
-import ButtonRounded from '@appComponents/widgets/ButtonRounded.js';
-import BTNBig from '@appComponents/widgets/BTNBig.js';
 import styles from '@appStyles/style.js';
-import gradient from '@appStyles/gradient.js';
-import LinearGradient from 'react-native-linear-gradient';
-import config from '@appRoot/config.js';
 
 
-var deviceWidth = Dimensions.get('window').width;
-
-export default class Profile extends Component {
+export default class extends Component {
 	async _removeStorage() {
 		try {
 			await AsyncStorage.removeItem("token");
@@ -35,18 +27,18 @@ export default class Profile extends Component {
 	}
 
 	logout() {
-		console.log("Register logout action start")
-		let url = config.domain + '/rest-auth/logout/';
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				token: '0022855a3bb585d919d098807cd511050c39ba01',
-			})
-		}).then((response) => console.log('Register logout response: ', response))
+		// console.log("Register logout action start")
+		// let url = config.domain + '/rest-auth/logout/';
+		// fetch(url, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Accept': 'application/json',
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// 	body: JSON.stringify({
+		// 		token: '0022855a3bb585d919d098807cd511050c39ba01',
+		// 	})
+		// }).then((response) => console.log('Register logout response: ', response))
 	}
 
 

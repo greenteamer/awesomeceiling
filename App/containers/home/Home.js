@@ -23,7 +23,6 @@ import ProjectList from '@appComponents/projects/Projectlist.js';
 import {Actions} from 'react-native-router-flux';
 
 import { connect } from 'react-redux'
-import {addProjectAction} from '@actions';
 
 
 class Home extends Component {

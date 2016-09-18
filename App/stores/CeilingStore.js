@@ -4,13 +4,10 @@ import { Actions } from 'react-native-router-flux';
 import autobind from 'autobind-decorator';
 import singleton from 'singleton';
 import _ from 'underscore';
-
 import { ProjectModel } from '@appModels';
-import * as Utils from '@appUtils';
+// import { realm } from '@appSchema';
+// let initialProjects = realm.objects('Project');
 
-import { realm } from '@appSchema';
-let initialProjects = realm.objects('Project');
-// console.log('**** test CeilingStore.js projects from realm: ', rlmProjects);
 
 @autobind
 class CeilingStore extends singleton {
@@ -19,17 +16,17 @@ class CeilingStore extends singleton {
 
   constructor(){
     super();
-    this.projects = (initialProjects) ? _.values(initialProjects) : [];
+    // this.projects = (initialProjects) ? _.values(initialProjects) : [];
     this.company = {};
     this.user = {};
   }
 
   @action clearProjects() {
     this.projects = [];
-    let allProjects = realm.objects('Project');
-    realm.write(()=>{
-      realm.delete(allProjects);
-    });
+    // let allProjects = realm.objects('Project');
+    // realm.write(()=>{
+    //   realm.delete(allProjects);
+    // });
   }
 
   // static fromJS(array) {
