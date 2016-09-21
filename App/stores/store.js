@@ -30,8 +30,6 @@ class Store extends singleton {
     // firebase db initial data:
     this.fetchData('materials');
     this.fetchData('materialTypes');
-    // fb.materials.on( 'value', snapshot => this.materials.replace(snapshot.val()) );
-    // fb.materialTypes.on( 'value', snapshot => this.materialTypes.replace(snapshot.val()) );
 
     autorun( () => {
       console.log("****** STORE REPORT: ", this);
@@ -61,4 +59,3 @@ class Store extends singleton {
 }
 
 export default Store.get();
-
