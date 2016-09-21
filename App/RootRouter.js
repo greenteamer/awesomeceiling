@@ -7,11 +7,9 @@ import {
   Navigator,
   NavigatorIOS,
   AsyncStorage,
-  AlertIOS,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Router, Scene } from 'react-native-mobx';
-
 
 import Login           from '@appContainers/auth/Login.js';
 import Register        from '@appContainers/auth/Register.js';
@@ -30,10 +28,7 @@ export default class RootRouter extends Component {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         store.user = {email: user.email};
-        AlertIOS.alert(
-         'авторизациия',
-         'Гуд ok НОРМ ваще',
-        );
+        Actions.settings();
       } else {
         store.user = null;
         Actions.login();
@@ -43,6 +38,7 @@ export default class RootRouter extends Component {
 
   render() {
     return (
+
       <Router ceilingStore={store} store={store}>
         <Scene key="root" hideNavBar>
           <Scene key="auth" direction="vertical" hideNavBar>
@@ -57,6 +53,7 @@ export default class RootRouter extends Component {
           <Scene key="projectDetail" component={ProjectDetail} title="ProjectDetail" />
         </Scene>
       </Router>
+
     )
   }
 }

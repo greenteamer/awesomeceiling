@@ -17,6 +17,7 @@ import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/Ionicons';
 import style_button from '@appStyles/style.js';
 import _ from 'lodash';
+import {toJS} from 'mobx';
 
 export default class ContactList extends Component {
 	statics: {
@@ -39,15 +40,14 @@ export default class ContactList extends Component {
 
 
 	_renderRow = (rowData: string, sectionID: number, rowID: number) => {
-    const { materialTypes } = this.props;
-    console.log('materials rowData: ', rowData);
+    // console.log('materials rowData: ', rowData);
     if (!rowData) return null;
-    const type = materialTypes['type' + rowData.typeId];
+    // const type = materialTypes['type' + rowData.typeId];
 		return (
 			<View>
 				<View style={styles.row}>
 					<Text style={styles.text}>
-            {rowID}: {type.name} - {rowData.width} - {rowData.price}
+            {rowData.id}: type: {rowData.typeId} {rowData.width} - {rowData.price}
 					</Text>
 				</View>
 			</View>
@@ -55,11 +55,11 @@ export default class ContactList extends Component {
 	}
 
 	render(){
-		const { materials, materialTypes } = this.props;
-		console.log('---- Settings materials: ', materials);
-    console.log('---- Settings materialTypes: ', materialTypes);
+		const { materials } = this.props;
 		if (!materials) return <Text>Loading...</Text>;
-
+		// const array = materials.map(mat => Object.assign({}, mat, {
+		// 	type: materialTypes.find(type => type.id === mat.typeId),
+		// }));
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		return (
 			<ListView
